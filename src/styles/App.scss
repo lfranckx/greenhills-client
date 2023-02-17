@@ -1,0 +1,75 @@
+@import "./vars";
+
+* {
+    font-family: $main_font, sans-serif;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            color: $black;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4, h5, ul, p, a, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4, h5 {
+    font-weight: 900;
+    margin-bottom: 6px;
+}
+
+p {
+    font-weight: 400;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style-type: none;
+}
+
+.btn {
+    width: 260px;
+    padding: 8px;
+    color: $white;
+    font-weight: 900;
+    font-size: 1.2rem;
+    display: block;
+    text-align: center;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all ease-in-out .4s;
+
+    &:hover {
+        border-radius: 40px;
+        opacity: .82;
+    }
+
+    &.green {
+        background: $green;
+    }
+    &.blue {
+        background: $blue;
+    }
+    &.black {
+        background: $black;
+    }
+    &.orange {
+        background: $orange;
+    }
+}
+
+.page-width {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 1rem;
+}

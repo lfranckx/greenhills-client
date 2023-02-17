@@ -4,8 +4,14 @@ export const ApplicationContext = createContext();
 
 export const ApplicationProvider = ({ children }) => {
 
-    const value = {
+    const [error, setError] = useState(null);
+    const [employees, setEmployees] = useState(null);
 
+    const value = {
+        error: error,
+        setError: setError,
+        employees: employees,
+        setEmployees: setEmployees
     };
     
     return (
