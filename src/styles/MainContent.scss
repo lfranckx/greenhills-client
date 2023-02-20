@@ -5,7 +5,7 @@
     justify-content: space-between;
     align-items: flex-end;
     width: 100%;
-    padding: 2rem 1rem 2rem;
+    padding: 2rem 0 2rem;
 }
 
 .employees-list {
@@ -34,4 +34,8 @@
     .btn {
         margin: auto;
     }
+}
+
+#add-employee-page {
+    padding: 2rem 1rem;
 }

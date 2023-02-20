@@ -33,13 +33,13 @@ export default function Header(props) {
                             <Link to="/" onClick={() => {setActive(!active)}} className='btn green'>Print Tickets</Link>
                         </li>
                         <li>
-                            <Link to="/" onClick={() => {setActive(!active)}} className='btn blue'>Add Employee</Link>
+                            <Link to="/add-employee" onClick={() => {setActive(!active)}} className='btn blue'>Add Employee</Link>
                         </li>
                         <li>
-                            <Link to="/" onClick={() => {setActive(!active)}} className='btn blue'>Edit Employees</Link>
+                            <Link to="/edit-employees" onClick={() => {setActive(!active)}} className='btn blue'>Edit Employees</Link>
                         </li>
                         <li>
-                            <Link to="/" onClick={() => {setActive(!active)}} className='btn orange'>Reports</Link>
+                            <Link to="/reports" onClick={() => {setActive(!active)}} className='btn orange'>Reports</Link>
                         </li>
                         <li>
                             <Link to="/" onClick={() => {setActive(!active)}} className='btn black'>Sign Out</Link>
