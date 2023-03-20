@@ -5,6 +5,7 @@ import PrintTicketsPage from '../routes/PrintTicketsPage';
 import EditEmployeesPage from '../routes/EditEmployeesPage';
 import AddEmployee from '../routes/AddEmployee';
 import Header from './Header';
+import AddUserPage from '../routes/AddUser';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Header />
       <Routes>
         <Route path='/' element={<PrintTicketsPage />} />
+        <Route path='/add-user' element={<AddUserPage />} />
         <Route path='/edit-employees' element={<EditEmployeesPage />} />
         <Route path='/add-employee' element={<AddEmployee />} />
       </Routes>

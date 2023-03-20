@@ -49,6 +49,12 @@ li {
     list-style-type: none;
 }
 
+input, select, textarea {
+    font-size: $regular;
+    padding: 8px;
+    margin: 4px 0;
+}
+
 .btn {
     width: 260px;
     padding: 8px;
@@ -59,7 +65,7 @@ li {
     text-align: center;
     border-radius: 6px;
     cursor: pointer;
-    transition: all ease-in-out .4s;
+    transition: all ease-in-out .28s;
 
     &:hover {
         border-radius: 40px;
@@ -84,4 +90,12 @@ li {
     max-width: 1200px;
     margin: auto;
     padding: 0 1rem;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.error {
+    color: $blue;
 }

@@ -36,6 +36,40 @@
     }
 }
 
-#add-employee-page {
+#form-page {
     padding: 2rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .form-wrap {
+        background: $light_blue;
+        padding: 2rem 4rem;
+        border-radius: 16px;
+        min-width: 520px;
+        max-width: 520px;
+
+        @media only screen and (max-width: 750px) {
+                min-width: 100%;
+                width: 100%;
+        }
+
+        h2 {
+            padding-bottom: 12px;
+        }
+
+        .field-wrap {
+            display: flex;
+            flex-direction: column;
+            margin: 12px 0;
+        }
+
+        .btn-wrap {
+            padding: 12px 0;
+
+            .btn {
+                margin: auto;
+            }
+        }
+    }
 }

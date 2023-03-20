@@ -13,7 +13,7 @@ export default function AddEmployee(props) {
     const variants = {
         visible: { opacity: 1 },
         hidden: { opacity: 0 },
-    }
+    };
 
     const navigate = useNavigate();
     const [error, setError] = useState(null);
@@ -29,10 +29,10 @@ export default function AddEmployee(props) {
                 variants={variants}
                 className='page-width'
             >
-                <main id='add-employee-page'>
+                <main id='form-page'>
                     <div className='form-wrap'>
-                        <Formik >
-                            <Form id='add_employee-form'>
+                        <Formik>
+                            <Form id='add-employee-form'>
                                 <div className='field-wrap'>
                                     <label htmlFor='first_name'>First Name</label>
                                     <Field 
