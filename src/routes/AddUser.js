@@ -45,7 +45,7 @@ export default function AddUser(props) {
         const newUser = {
             username: values.username,
             password: values.password,
-            location: locationValue
+            location_id: locationValue
         }
 
         console.log('submitting form newUser...', newUser);

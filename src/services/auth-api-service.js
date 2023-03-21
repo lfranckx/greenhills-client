@@ -2,7 +2,7 @@ import config from '../config';
 
 const AuthApiService = {
     postUser(user) {
-        console.log('Sending user...', user);
+        console.log('AuthApiService.postUser( - Sending user...', user);
         return fetch(`${config.API_ENDPOINT}/users`, {
             method: 'POST',
             headers: {
@@ -12,7 +12,7 @@ const AuthApiService = {
         });
     },
     postLogin(credentials) {
-        console.log('logging in with credentials...', credentials);
+        console.log('AuthApiService.postLogin() - logging in with credentials...', credentials);
         return fetch(`${config.API_ENDPOINT}/auth/login`, {
             method: 'POST',
             headers: {
