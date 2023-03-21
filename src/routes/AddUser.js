@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { useNavigate } from 'react-router';
+import AuthApiService from '../services/auth-api-service';
 
 export default function AddUser(props) {
     useEffect(() => {
@@ -13,8 +13,8 @@ export default function AddUser(props) {
         visible: { opacity: 1 },
         hidden: { opacity: 0 },
     };
-
-    const navigate = useNavigate();
+    
+    const [message, setMessage] = useState(null);
     const [error, setError] = useState(null);
     const [buttonState, handleButtonState] = useState('Submit');
     const [buttonDisabled, handleButtonDisabled] = useState(false);
@@ -42,13 +42,21 @@ export default function AddUser(props) {
             locationValue = 2;
         }
 
-        const newValues = {
+        const newUser = {
             username: values.username,
             password: values.password,
             location: locationValue
         }
 
-        console.log(newValues);
+        console.log('submitting form newUser...', newUser);
+        AuthApiService.postUser(newUser)
+        .then(res => {
+            console.log('Server Response...', res);
+            setMessage('New user added. If you would like to change accounts sign out and login with the new user credentials.')
+        })
+        .catch(res => {
+            setError(res.error);
+        });
     }
 
     return (
@@ -114,6 +122,9 @@ export default function AddUser(props) {
                                         {buttonState}
                                     </button>
                                 </div>
+
+                                {message && <p className='message'>{message}</p>}
+                                {error && <p className='error'>{error}</p>}
                             </Form>
                         </Formik>
                     </div>
