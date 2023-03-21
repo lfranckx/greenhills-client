@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import AuthApiService from '../services/auth-api-service';
+import AuthApiService from '../services/AuthApiService';
+import { ApplicationContext } from '../context';
 
 export default function AddEmployee(props) {
     useEffect(() => {
@@ -15,11 +16,14 @@ export default function AddEmployee(props) {
         hidden: { opacity: 0 },
     };
 
+    const { user } = useContext(ApplicationContext);
     const navigate = useNavigate();
     const [message, setMessage] = useState(null);
     const [error, setError] = useState(null);
     const [buttonState, handleButtonState] = useState('Submit');
     const [buttonDisabled, handleButtonDisabled] = useState(false);
+
+    console.log(user);
 
     const location_field = {
         green_hills: "Green Hills",

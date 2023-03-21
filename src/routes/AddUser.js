@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import AuthApiService from '../services/auth-api-service';
+import AuthApiService from '../services/AuthApiService';
 
 export default function AddUser(props) {
     useEffect(() => {
