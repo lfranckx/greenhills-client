@@ -25,7 +25,7 @@ export default function AddUser(props) {
         woussickett: "Woussickett"
     }
 
-    const addUserFormSchema = Yup.object().shape({
+    const formSchema = Yup.object().shape({
         username: Yup.string().min(3, '* Name is too short').max(20, "* 20 maximum characters").required('* Required'),
         password: Yup.string().min(3, 'Password is too short').max(72, 'Password is too long').matches(REQEX_UPPER_LOWER_NUMBER, 'Password must container at least one uppercase, one lowercase, and one number').required('* Required'),
         confirm_password: Yup.string().required('* Required').oneOf([ Yup.ref("password"), null ], "Passwords must match."),
@@ -75,7 +75,7 @@ export default function AddUser(props) {
                         <h2 className='text-center'>Add a new user</h2>
                         <Formik
                             initialValues={{ username: "", password: "", location: "" }}
-                            validationSchema={addUserFormSchema}
+                            validationSchema={formSchema}
                             onSubmit={submitForm}
                         >
                             <Form id='add-user-form'>
@@ -137,11 +137,10 @@ export default function AddUser(props) {
                                         {buttonState}
                                     </button>
                                 </div>
-
-                                {message && <p className='message'>{message}</p>}
-                                {error && <p className='error'>{error}</p>}
                             </Form>
                         </Formik>
+                        {message && <p className='message'>{message}</p>}
+                        {error && <p className='error'>{error}</p>}
                     </div>
                 </main> 
             </motion.div>
