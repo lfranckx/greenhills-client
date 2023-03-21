@@ -28,11 +28,13 @@ export default function AddUser(props) {
     const addUserFormSchema = Yup.object().shape({
         username: Yup.string().min(3, '* Name is too short').max(20, "* 20 maximum characters").required('* Required'),
         password: Yup.string().min(3, 'Password is too short').max(72, 'Password is too long').matches(REQEX_UPPER_LOWER_NUMBER, 'Password must container at least one uppercase, one lowercase, and one number').required('* Required'),
+        confirm_password: Yup.string().required('* Required').oneOf([ Yup.ref("password"), null ], "Passwords must match."),
         location: Yup.string().oneOf(Object.values(location_field), '* Must select one of the valid options').required('* Required')
     });
 
     const submitForm = (values) => {
-        // handleButtonState('Sending...');
+        handleButtonState('Sending...');
+        handleButtonDisabled(true);
 
         let locationValue;
         if (values.location === "Green Hills") {
@@ -52,10 +54,8 @@ export default function AddUser(props) {
         AuthApiService.postUser(newUser)
         .then(res => {
             console.log('Server Response...', res);
-            if(res.status(200))
-                setMessage('New user added. If you would like to change accounts sign out and login with the new user credentials.');
-            
-            setMessage(`ERROR: ${res}`);
+            setMessage('New user added. If you would like to change accounts sign out and login with the new user credentials.');
+            handleButtonState('Sent');
         })
         .catch(res => {
             setError(res.error);
@@ -94,7 +94,7 @@ export default function AddUser(props) {
                                 <div className='field-wrap'>
                                     <label htmlFor='password'>Password</label>
                                     <Field 
-                                        type="text" 
+                                        type="password" 
                                         name='password' 
                                         aria-label='password'
                                         className='password'
@@ -102,6 +102,18 @@ export default function AddUser(props) {
                                         required
                                     />
                                     <ErrorMessage component="div" className='error' name='password' />
+                                </div>
+                                <div className='field-wrap'>
+                                    <label htmlFor='confirm_password'>Confirm Password</label>
+                                    <Field 
+                                        type="password" 
+                                        name='confirm_password' 
+                                        aria-label='confirm_password'
+                                        className='confirm_password'
+                                        id='confirm_password' 
+                                        required
+                                    />
+                                    <ErrorMessage component="div" className='error' name='confirm_password' />
                                 </div>
                                 <div className='field-wrap'>
                                     <label htmlFor='location'>Location</label>
