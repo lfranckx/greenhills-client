@@ -32,7 +32,7 @@ export default function AddUser(props) {
     });
 
     const submitForm = (values) => {
-        handleButtonState('Sending...');
+        // handleButtonState('Sending...');
 
         let locationValue;
         if (values.location === "Green Hills") {
@@ -52,7 +52,10 @@ export default function AddUser(props) {
         AuthApiService.postUser(newUser)
         .then(res => {
             console.log('Server Response...', res);
-            setMessage('New user added. If you would like to change accounts sign out and login with the new user credentials.')
+            if(res.status(200))
+                setMessage('New user added. If you would like to change accounts sign out and login with the new user credentials.');
+            
+            setMessage(`ERROR: ${res}`);
         })
         .catch(res => {
             setError(res.error);
