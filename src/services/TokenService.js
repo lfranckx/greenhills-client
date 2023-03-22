@@ -48,7 +48,7 @@ const TokenService = {
     },
     clearCallbackBeforeExpiry() {
         clearTimeout(_timeoutId);
-    },  
+    },
 }
 
 export default TokenService;

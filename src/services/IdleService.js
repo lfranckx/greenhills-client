@@ -15,10 +15,17 @@ const IdleService = {
     },
     /* called when a user interacts with the page */
     resetIdleTimer(ev) {
+        console.log('resetIdleTimer called!');
         /* remove any timeouts as the user just interacted */
         clearTimeout(_timeoutId);
         /* queue the callback to happen 5 minutes from now */
-        _timeoutId = setTimeout(_idleCallback, _FIVE_MINUTES_IN_MS);
+        // _timeoutId = setTimeout(_idleCallback, _FIVE_MINUTES_IN_MS);
+
+        if (_idleCallback) {
+            _timeoutId = setTimeout(_idleCallback, _FIVE_MINUTES_IN_MS);
+        } else {
+            console.log('_idleCallback is not set!');
+        }
     },
     registerIdleTimerResets() {
         /* register the resetIdleTimer for events when a user interacts with page */

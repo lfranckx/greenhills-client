@@ -30,14 +30,11 @@ export default function LoginPage(props) {
     });
 
     const submitForm = (values) => {
-        // handleButtonState('Sending...');
-        // handleButtonDisabled(true);
-
-        console.log('submitting values...', values);
+        handleButtonState('Sending...');
+        handleButtonDisabled(true);
 
         AuthApiService.postLogin({ username: values.username, password: values.password })
             .then(res => {
-                console.log(res);
                 navigate('/print-tickets');
             })
             .catch(res => {

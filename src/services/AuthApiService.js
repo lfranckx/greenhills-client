@@ -4,7 +4,6 @@ import IdleService from './IdleService';
 
 const AuthApiService = {
     postUser(user) {
-        console.log('AuthApiService - Sending new user...', user);
         return fetch(`${config.API_ENDPOINT}/users`, {
             method: 'POST',
             headers: {
@@ -14,7 +13,6 @@ const AuthApiService = {
         });
     },
     postLogin(credentials) {
-        console.log('AuthApiService - logging in with credentials...', credentials);
         return fetch(`${config.API_ENDPOINT}/auth/login`, {
             method: 'POST',
             headers: {
@@ -22,21 +20,27 @@ const AuthApiService = {
             },
             body: JSON.stringify(credentials)
         })
-        .then(res => {
+        .then(res => 
+            (!res.ok)
+                ? res.json().then(e => Promise.reject(e))
+                : res.json()
+        )
+        .then(data => {
             /*
                 whenever a login is performed:
                 1. save the token in local storage
                 2. queue auto logout when the user goes idle
                 3. queue a call to the refresh endpoint based on the JWT's exp value
             */
-           console.log('res from submitting credentials...', res);
-           console.log('res.authToken...', res.authToken);
-            TokenService.saveAuthToken(res.authToken);
-            IdleService.regiserIdleTimerResets();
-            TokenService.queueCallbackBeforeExpiry(() => {
-                AuthApiService.postRefreshToken();
+            TokenService.saveAuthToken(data.authToken);
+            document.addEventListener('DOMContentLoaded', () => {
+                IdleService.registerIdleTimerResets();
+                TokenService.queueCallbackBeforeExpiry(() => {
+                    AuthApiService.postRefreshToken();
+                });
             });
-            return res;
+            
+            return data;
         });
     },
     postRefreshToken() {
