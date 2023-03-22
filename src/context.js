@@ -6,12 +6,15 @@ export const ApplicationProvider = ({ children }) => {
 
     const [error, setError] = useState(null);
     const [employees, setEmployees] = useState(null);
+    const [location_id, setLocationId] = useState(null);
 
     const value = {
         error: error,
         setError: setError,
         employees: employees,
-        setEmployees: setEmployees
+        setEmployees: setEmployees,
+        location_id: location_id,
+        setLocationId: setLocationId
     };
     
     return (

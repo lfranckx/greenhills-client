@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { ApplicationContext } from '../context';
-import { dataObject, dataArray } from '../misc/dummy_data';
+import { motion } from 'framer-motion';
 import '../styles/MainContent.scss';
 import PrintTicketsListItem from '../components/PrintTicketsListItem';
-import { motion } from 'framer-motion';
+import EmployeesApiService from '../services/EmployeesApiService';
 
 export default function PrintTicketsPage(props) {
+
+    let params = useParams();
 
     const variants = {
         visible: { opacity: 1 },
@@ -17,7 +19,12 @@ export default function PrintTicketsPage(props) {
     const [date, setDate ] = useState(new Date());
 
     useEffect(() => {
-        setEmployees(dataArray);
+        const location_id = params.locationId;
+        console.log(location_id);
+
+        EmployeesApiService.getEmployeesByLocationId(location_id)
+            .then(setEmployees)
+            .catch(setError)
         const timer = setInterval(() => setDate(new Date()), 1000);
         return function cleanup() {
             clearInterval(timer);
@@ -66,7 +73,7 @@ export default function PrintTicketsPage(props) {
                 </div>
 
                 <section className='main-content'>
-                    {error ? <h2>There was an error try again.</h2> : renderEmployees()}
+                    {error ? <h2 className='text-center error'>There was an error try again.</h2> : renderEmployees()}
                 </section>
             </main>
         </motion.div>

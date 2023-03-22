@@ -17,7 +17,7 @@ export default function LoginPage(props) {
     };
 
     const navigate = useNavigate();
-    const { setUser } = useContext(ApplicationContext);
+    const { locationId, setLocationId } = useContext(ApplicationContext);
     const [message, setMessage] = useState(null);
     const [error, setError] = useState(null);
     const [buttonState, handleButtonState] = useState('Submit');
@@ -35,7 +35,9 @@ export default function LoginPage(props) {
 
         AuthApiService.postLogin({ username: values.username, password: values.password })
             .then(res => {
-                navigate('/print-tickets');
+                console.log('response from AuthApiService...', res);
+                setLocationId(res.location_id)
+                navigate(`/location/${res.location_id}`);
             })
             .catch(res => {
                 setError({ error: res.error });

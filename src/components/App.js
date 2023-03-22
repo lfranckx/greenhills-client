@@ -5,7 +5,7 @@ import PrivateRoutes from '../routes/utils/PrivateRoutes';
 import PublicOnlyRoutes from '../routes/utils/PublicOnlyRoutes';
 import Header from './Header';
 import LoginPage from '../routes/LoginPage';
-import PrintTicketsPage from '../routes/PrintTicketsPage';
+import Dashboard from '../routes/Dashboard';
 import EditEmployeePage from '../routes/EditEmployeePage';
 import AddEmployee from '../routes/AddEmployee';
 import AddUserPage from '../routes/AddUser';
@@ -16,7 +16,7 @@ function App() {
       <Header />
       <Routes>
         <Route element={<PrivateRoutes />} >
-          <Route path='/print-tickets' element={<PrintTicketsPage />} />
+          <Route path='/location/:locationId' element={<Dashboard />} />
           <Route path='/add-user' element={<AddUserPage />} />
           <Route path='/edit-employee' element={<EditEmployeePage />} />
           <Route path='/add-employee' element={<AddEmployee />} />
