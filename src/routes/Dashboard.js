@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { ApplicationContext } from '../context';
 import { motion } from 'framer-motion';
 import '../styles/MainContent.scss';
-import PrintTicketsListItem from '../components/PrintTicketsListItem';
+import EmployeesListItem from '../components/EmployeesListItem';
 import EmployeesApiService from '../services/EmployeesApiService';
 
 export default function PrintTicketsPage(props) {
@@ -15,14 +15,13 @@ export default function PrintTicketsPage(props) {
         hidden: { opacity: 0 },
     }
     
-    const { error, setError, employees, setEmployees } = useContext(ApplicationContext);
+    const { error, setError, employees, setEmployees, setLocationId } = useContext(ApplicationContext);
     const [date, setDate ] = useState(new Date());
 
     useEffect(() => {
-        const location_id = params.locationId;
-        console.log(location_id);
-
-        EmployeesApiService.getEmployeesByLocationId(location_id)
+        const locationId = params.locationId;
+        
+        EmployeesApiService.getEmployeesByLocationId(locationId)
             .then(setEmployees)
             .catch(setError)
         const timer = setInterval(() => setDate(new Date()), 1000);
@@ -44,7 +43,7 @@ export default function PrintTicketsPage(props) {
             return (
                 <ul className='employees-list'>
                     {employees.map((employee, key) => 
-                        <PrintTicketsListItem 
+                        <EmployeesListItem 
                             key={key}
                             employee={employee}
                         />
