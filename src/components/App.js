@@ -1,10 +1,13 @@
 import React from 'react';
 import '../styles/App.scss';
 import { Routes, Route } from 'react-router-dom';
-import PrintTicketsPage from '../routes/PrintTicketsPage';
-import EditEmployeesPage from '../routes/EditEmployeesPage';
-import AddEmployee from '../routes/AddEmployee';
+import PrivateRoutes from '../routes/utils/PrivateRoutes';
+import PublicOnlyRoutes from '../routes/utils/PublicOnlyRoutes';
 import Header from './Header';
+import LoginPage from '../routes/LoginPage';
+import PrintTicketsPage from '../routes/PrintTicketsPage';
+import EditEmployeePage from '../routes/EditEmployeePage';
+import AddEmployee from '../routes/AddEmployee';
 import AddUserPage from '../routes/AddUser';
 
 function App() {
@@ -12,10 +15,16 @@ function App() {
     <div id='app'>
       <Header />
       <Routes>
-        <Route path='/' element={<PrintTicketsPage />} />
-        <Route path='/add-user' element={<AddUserPage />} />
-        <Route path='/edit-employees' element={<EditEmployeesPage />} />
-        <Route path='/add-employee' element={<AddEmployee />} />
+        <Route element={<PrivateRoutes />} >
+          <Route path='/print-tickets' element={<PrintTicketsPage />} />
+          <Route path='/add-user' element={<AddUserPage />} />
+          <Route path='/edit-employee' element={<EditEmployeePage />} />
+          <Route path='/add-employee' element={<AddEmployee />} />
+        </Route>
+
+        <Route element={<PublicOnlyRoutes />} >
+          <Route path='/' element={<LoginPage />} />
+        </Route>
       </Routes>
       <footer></footer>
     </div>
