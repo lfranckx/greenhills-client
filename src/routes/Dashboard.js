@@ -30,8 +30,6 @@ export default function PrintTicketsPage(props) {
         }
     }, []);
 
-    console.log('getting location_id inside Dashboard...', location_id);
-
     const renderEmployees = () => {
         if (!employees) {
             return (

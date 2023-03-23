@@ -31,8 +31,6 @@ export default function EditEmployeesPage(props) {
         }
     }, []);
 
-    console.log('getting location_id inside DashboardEdit...', location_id);
-
     const renderEmployees = () => {
         if (!employees) {
             return (

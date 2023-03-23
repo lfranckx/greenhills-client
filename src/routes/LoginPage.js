@@ -17,8 +17,7 @@ export default function LoginPage(props) {
     };
 
     const navigate = useNavigate();
-    const { location_id, setLocation_id } = useContext(ApplicationContext);
-    const [message, setMessage] = useState(null);
+    const { setLocation_id } = useContext(ApplicationContext);
     const [error, setError] = useState(null);
     const [buttonState, handleButtonState] = useState('Submit');
     const [buttonDisabled, handleButtonDisabled] = useState(false);
@@ -96,7 +95,6 @@ export default function LoginPage(props) {
                             </Form>
                         </Formik>
 
-                        {message && <p className='message'>{message}</p>}
                         {error && <p className='error'>{error}</p>}
                     </div>
                 </main>

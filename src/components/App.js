@@ -9,7 +9,7 @@ import Dashboard from '../routes/Dashboard';
 import DashboardEdit from '../routes/DashboardEdit';
 import AddUserPage from '../routes/AddUser';
 import AddEmployee from '../routes/AddEmployee';
-import EditEmployeePage from '../routes/EditEmployeePage';
+import EditEmployee from '../routes/EditEmployee';
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
           <Route path='/location/:locationId' element={<Dashboard />} />
           <Route path='/edit-employees/:locationId' element={<DashboardEdit />} />
           <Route path='/add-user' element={<AddUserPage />} />
-          <Route path='/edit-employee/:employeeId' element={<EditEmployeePage />} />
+          <Route path='/edit-employee/:employeeId' element={<EditEmployee />} />
           <Route path='/add-employee' element={<AddEmployee />} />
         </Route>
 

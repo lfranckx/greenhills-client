@@ -28,8 +28,6 @@ export default function EditEmployeePage(props) {
     const [buttonDisabled, handleButtonDisabled] = useState(false);
     const [employee, setEmployee] = useState(null);
 
-    console.log('employee from state...', employee);
-
     const location_field = {
         green_hills: "Green Hills",
         woussickett: "Woussickett"
@@ -49,7 +47,7 @@ export default function EditEmployeePage(props) {
         console.log('submitForm values...', values);
         handleButtonState('Sending...');
         handleButtonDisabled(true);
-        
+
         let locationValue;
         if (values.location === "Green Hills") {
             locationValue = 1;
@@ -206,6 +204,7 @@ export default function EditEmployeePage(props) {
                                     </Form>
                                 )}
                             </Formik>
+                            
                             {error && <p className='error'>{error}</p>}
                         </div>
                     </main>
