@@ -6,8 +6,6 @@ import * as Yup from 'yup';
 import EmployeesApiService from '../services/EmployeesApiService';
 
 export default function EditEmployeePage(props) {
-    let params = useParams();
-    const employeeId = params.employeeId;
 
     useEffect(() => {
         window.scrollTo(0,0);
@@ -22,11 +20,16 @@ export default function EditEmployeePage(props) {
         hidden: { opacity: 0 },
     };
 
+    let params = useParams();
+    const employeeId = params.employeeId;
+
     const [message, setMessage] = useState(null);
     const [error, setError] = useState(null);
     const [buttonState, handleButtonState] = useState('Submit');
     const [buttonDisabled, handleButtonDisabled] = useState(false);
     const [employee, setEmployee] = useState(null);
+
+    console.log('employee from state...', employee);
 
     const location_field = {
         green_hills: "Green Hills",
