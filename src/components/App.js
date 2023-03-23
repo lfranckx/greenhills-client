@@ -6,9 +6,10 @@ import PublicOnlyRoutes from '../routes/utils/PublicOnlyRoutes';
 import Header from './Header';
 import LoginPage from '../routes/LoginPage';
 import Dashboard from '../routes/Dashboard';
-import EditEmployeePage from '../routes/EditEmployeePage';
-import AddEmployee from '../routes/AddEmployee';
+import DashboardEdit from '../routes/DashboardEdit';
 import AddUserPage from '../routes/AddUser';
+import AddEmployee from '../routes/AddEmployee';
+import EditEmployeePage from '../routes/EditEmployeePage';
 
 function App() {
   return (
@@ -17,8 +18,9 @@ function App() {
       <Routes>
         <Route element={<PrivateRoutes />} >
           <Route path='/location/:locationId' element={<Dashboard />} />
+          <Route path='/edit-employees/:locationId' element={<DashboardEdit />} />
           <Route path='/add-user' element={<AddUserPage />} />
-          <Route path='/edit-employee' element={<EditEmployeePage />} />
+          <Route path='/edit-employee/:employeeId' element={<EditEmployeePage />} />
           <Route path='/add-employee' element={<AddEmployee />} />
         </Route>
 

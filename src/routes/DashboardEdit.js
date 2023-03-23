@@ -3,10 +3,11 @@ import { Link, useParams } from 'react-router-dom';
 import { ApplicationContext } from '../context';
 import { motion } from 'framer-motion';
 import '../styles/MainContent.scss';
-import EmployeesListItem from '../components/EmployeesListItem';
+import EditEmployeesListItem from '../components/EditEmployeesListItem';
 import EmployeesApiService from '../services/EmployeesApiService';
 
-export default function PrintTicketsPage(props) {
+
+export default function EditEmployeesPage(props) {
 
     let params = useParams();
     const locationId = parseInt(params.locationId);
@@ -43,36 +44,36 @@ export default function PrintTicketsPage(props) {
             return (
                 <ul className='employees-list'>
                     {employees.map((employee, key) => 
-                        <EmployeesListItem 
+                        <EditEmployeesListItem 
                             key={key}
                             employee={employee}
                         />
                     )}
                 </ul>
-            );
+            )
         }
     }
 
     return (
         <motion.div 
-            className='page-width'
             initial="hidden"
             animate="visible"
             variants={variants}
+            className='page-width'
         >
             <main id='print-page'>
                 <div className='page-header'>
                     <div className='wrap'>
-                        <h2>{locationId === 1 ? "Green Hills - Clyde, OH" :  "Woussickett - Sandusky, OH"}</h2>
+                    <h2>{locationId === 1 ? "Green Hills - Clyde, OH" :  "Woussickett - Sandusky, OH"}</h2>
                         <h3><span className='date_stamp'>{date.toLocaleDateString()}</span> - <span className='time_stamp'>{date.toLocaleTimeString()}</span></h3>
                     </div>
                     <div className='btn-wrap'>
-                        <Link to={`/edit-employees/${locationId}`} className='btn blue'>Edit Employees</Link>
+                        <Link className='btn green' to='/'>Print Tickets</Link>
                     </div>
                 </div>
 
                 <section className='main-content'>
-                    {error ? <h2 className='text-center error'>There was an error try again.</h2> : renderEmployees()}
+                    {error ? <h2>There was an error try again.</h2> : renderEmployees()}
                 </section>
             </main>
         </motion.div>

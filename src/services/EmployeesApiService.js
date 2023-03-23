@@ -34,6 +34,21 @@ const EmployeesApiService = {
                 });
             });
         });
+    },
+    getEmployeeById(employeeId) {
+        console.log('running getEmployeeById()...', `${config.API_ENDPOINT}/employees/${employeeId}`);
+
+        return fetch(`${config.API_ENDPOINT}/employees/${employeeId}`, {
+            headers: {
+                'authorization': `bearer ${TokenService.getAuthToken()}`
+            }
+        })
+        .then(res => {
+            if (!res.ok) {
+                return res.json().then(e => Promise.reject(e));
+            }
+            return res.json()
+        })
     }
 }
 

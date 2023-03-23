@@ -1,24 +1,22 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-export default function EmployeesListItem(props) {
+export default function EditEmployeesListItem(props) {
     const { employee } = props;
+
     return (
         <>
             <li className='employees-list-item'>
                 <div className='flex'>
                     <h3>{employee.name}</h3>
-                    <h3>00{employee.employeeNumber}</h3>
+                    <h3>E{employee.id}</h3>
                 </div>
                 <div className='flex'>
                     <h4>Total Score:</h4>
-                    <p>{employee.total_score}</p>
-                </div>
-                <div className='flex'>
-                    <h4>Tickets Today:</h4>
-                    <p>{employee.tickets_today}</p>
+                    <p>{employee.score}</p>
                 </div>
                 <div className='btn-wrap'>
-                    <a className='btn blue'>Edit</a>
+                    <Link to={`/edit-employee/${employee.id}`} className='btn blue'>Edit Employee</Link>
                 </div>
             </li>
         </>

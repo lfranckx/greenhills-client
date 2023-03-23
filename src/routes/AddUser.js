@@ -7,7 +7,7 @@ import AuthApiService from '../services/AuthApiService';
 export default function AddUser(props) {
     useEffect(() => {
         window.scrollTo(0,0);
-    });
+    }, []);
 
     const variants = {
         visible: { opacity: 1 },

@@ -33,7 +33,7 @@ const AuthApiService = {
                 3. queue a call to the refresh endpoint based on the JWT's exp value
             */
            console.log('postLogin() response data...', data);
-            window.sessionStorage.setItem('location_id', data.location_id)
+            window.sessionStorage.setItem('location_id', data.location_id);
             TokenService.saveAuthToken(data.authToken);
             document.addEventListener('DOMContentLoaded', () => {
                 IdleService.registerIdleTimerResets();

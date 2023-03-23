@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import AuthApiService from '../services/AuthApiService';
-import { ApplicationContext } from '../context';
 
 export default function AddEmployee(props) {
     useEffect(() => {
@@ -16,14 +15,12 @@ export default function AddEmployee(props) {
         hidden: { opacity: 0 },
     };
 
-    const { user } = useContext(ApplicationContext);
     const navigate = useNavigate();
     const [message, setMessage] = useState(null);
     const [error, setError] = useState(null);
     const [buttonState, handleButtonState] = useState('Submit');
     const [buttonDisabled, handleButtonDisabled] = useState(false);
 
-    console.log(user);
 
     const location_field = {
         green_hills: "Green Hills",
@@ -47,7 +44,7 @@ export default function AddEmployee(props) {
             locationValue = 2;
         }
 
-        const name = `${values.first_name} ${values.last_name}`
+        const name = `${values.first_name} ${values.last_name}`;
 
         const newEmployee = {
             name: name,
@@ -57,8 +54,6 @@ export default function AddEmployee(props) {
         }
 
         console.log('submitting newEmployee...', newEmployee);
-
-        
     }
 
     return (
@@ -122,7 +117,7 @@ export default function AddEmployee(props) {
                                 </div>
 
                                 <div className='field-wrap'>
-                                    <label htmlFor='password'>Password</label>
+                                    <label htmlFor='password'>Manager Password</label>
                                     <Field 
                                         type="password" 
                                         name='password' 
