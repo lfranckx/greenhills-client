@@ -48,14 +48,37 @@ const EmployeesApiService = {
                 return res.json().then(e => Promise.reject(e));
             }
             return res.json().then(employee => {
+                // Add a check for an empty score string and set it to zero if empty
                 if (employee.score === '') {
                     employee.score = 0;
                 }
+
+                // Split name for first name last name
+                const nameArr = employee.name.split(" ");;
+                employee.nameArr = nameArr;
+
+                // Set location based on location_id
+                if (employee.location_id === "1") {
+                    employee.location = "Green Hills"
+                }
+                if (employee.location_id === "2") {
+                    employee.location = "Woussickett"
+                }
                 return employee;
             }
-
             )
         })
+    },
+    updateEmployee(employee) {
+        console.log('running updateEmployee()...', `${config.API_ENDPOINT}/employees/${employee.id}`);
+
+        return fetch(`${config.API_ENDPOINT}/employees/${employee.id}`, {
+            headers: {
+                'authorization': `bearer ${TokenService.getAuthToken()}`
+            },
+            body: JSON.stringify(employee)
+        })
+        .then()
     }
 }
 
