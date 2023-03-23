@@ -47,15 +47,14 @@ const EmployeesApiService = {
             if (!res.ok) {
                 return res.json().then(e => Promise.reject(e));
             }
-            // Add a check for an empty score string and set it to zero if empty
-            return res.json().then(data => {
-                return data.map(employee => {
+            return res.json().then(employee => {
                 if (employee.score === '') {
                     employee.score = 0;
                 }
                 return employee;
-                });
-            });
+            }
+
+            )
         })
     }
 }
