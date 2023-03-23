@@ -16,11 +16,11 @@ export default function PrintTicketsPage(props) {
         hidden: { opacity: 0 },
     }
     
-    const { error, setError, employees, setEmployees, setLocationId } = useContext(ApplicationContext);
+    const { error, setError, employees, setEmployees, location_id, setLocation_id } = useContext(ApplicationContext);
     const [date, setDate ] = useState(new Date());
 
     useEffect(() => {
-        setLocationId(locationId);
+        setLocation_id(locationId);
         EmployeesApiService.getEmployeesByLocationId(locationId)
             .then(setEmployees)
             .catch(setError)
@@ -29,6 +29,8 @@ export default function PrintTicketsPage(props) {
             clearInterval(timer);
         }
     }, []);
+
+    console.log('getting location_id inside Dashboard...', location_id);
 
     const renderEmployees = () => {
         if (!employees) {

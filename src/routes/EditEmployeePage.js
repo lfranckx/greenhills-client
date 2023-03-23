@@ -23,7 +23,6 @@ export default function EditEmployeePage(props) {
         hidden: { opacity: 0 },
     };
 
-    const [message, setMessage] = useState(null);
     const [error, setError] = useState(null);
     const [buttonState, handleButtonState] = useState('Submit');
     const [buttonDisabled, handleButtonDisabled] = useState(false);
@@ -35,15 +34,22 @@ export default function EditEmployeePage(props) {
         green_hills: "Green Hills",
         woussickett: "Woussickett"
     };
+    const REQEX_UPPER_LOWER_NUMBER = /^(?:(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*)$/;
 
     const formSchema = Yup.object().shape({
-        first_name: Yup.string().max(30, "* 30 maximum characters"),
-        last_name: Yup.string().max(30, "* 30 maximum characters"),
-        location: Yup.string().oneOf(Object.values(location_field), '* Must select one of the valid options').required('* Required')
+        id: Yup.number().integer("* ID must be an integer").positive(" * ID must be a positive number").required('* Required'),
+        first_name: Yup.string().max(30, "* 30 maximum characters").required('* Required'),
+        last_name: Yup.string().max(30, "* 30 maximum characters").required('* Required'),
+        score: Yup.number().integer("* Score must be a number").required('* Required'),
+        location: Yup.string().oneOf(Object.values(location_field), '* Must select one of the valid options').required('* Required'),
+        password: Yup.string().min(3, 'Password is too short').max(72, 'Password is too long').matches(REQEX_UPPER_LOWER_NUMBER, 'Password must container at least one uppercase, one lowercase, and one number').required('* Required')
     });
 
     const submitForm = (values) => {
         console.log('submitForm values...', values);
+        handleButtonState('Sending...');
+        handleButtonDisabled(true);
+        
         let locationValue;
         if (values.location === "Green Hills") {
             locationValue = 1;
@@ -63,6 +69,13 @@ export default function EditEmployeePage(props) {
         }
 
         console.log('submitting updatedEmployee', updatedEmployee);
+        EmployeesApiService.updateEmployee(updatedEmployee)
+            .then(res => {
+                console.log('response from server...', res);
+                EmployeesApiService.getEmployeeById(employeeId)
+                    .then(setEmployee)
+                    .catch(setError);
+            })
     }
 
     if (employee) {
@@ -82,9 +95,9 @@ export default function EditEmployeePage(props) {
                                     id: employee?.id || '', 
                                     first_name: employee?.nameArr[0] || '', 
                                     last_name: employee?.nameArr[1] || '', 
-                                    password: "", 
-                                    location: employee?.location || '', 
-                                    score: employee?.score || '' 
+                                    score: employee?.score || 0,
+                                    location: employee?.location || '',
+                                    password: ""
                                 }}
                                 validationSchema={formSchema}
                                 onSubmit={submitForm}
@@ -92,14 +105,13 @@ export default function EditEmployeePage(props) {
                                 {({ values, handleChange }) => (
                                     <Form id='edit-employee-form'>
                                         <div className='field-wrap'>
-                                            <label htmlFor='id'>ID Number</label>
+                                            <label htmlFor='id'>Employee ID</label>
                                             <Field 
                                                 type="number" 
                                                 name='id' 
                                                 aria-label='id'
                                                 className='id'
                                                 id='id' 
-                                                required
                                                 autoComplete="id"
                                                 value={values.id}
                                                 onChange={handleChange}
@@ -115,7 +127,6 @@ export default function EditEmployeePage(props) {
                                                 aria-label='first_name'
                                                 className='first_name'
                                                 id='first_name' 
-                                                required
                                                 autoComplete="given-name"
                                                 value={values.first_name}
                                                 onChange={handleChange}
@@ -131,12 +142,26 @@ export default function EditEmployeePage(props) {
                                                 aria-label='last_name'
                                                 className='last_name'
                                                 id='last_name' 
-                                                required
                                                 autoComplete="surname"
                                                 value={values.last_name}
                                                 onChange={handleChange}
                                             />
                                             <ErrorMessage component="div" className='error' name='last_name' />
+                                        </div>
+
+                                        <div className='field-wrap'>
+                                            <label htmlFor='score'>Score</label>
+                                            <Field 
+                                                type="number" 
+                                                name='score' 
+                                                aria-label='score'
+                                                className='score'
+                                                id='score' 
+                                                autoComplete="score"
+                                                value={values.score}
+                                                onChange={handleChange}
+                                            />
+                                            <ErrorMessage component="div" className='error' name='score' />
                                         </div>
 
                                         <div className='field-wrap'>
@@ -147,7 +172,6 @@ export default function EditEmployeePage(props) {
                                                 aria-label='location'
                                                 className='location'
                                                 id='location' 
-                                                required
                                                 autoComplete="location"
                                                 value={values.location}
                                                 onChange={handleChange}
@@ -167,7 +191,6 @@ export default function EditEmployeePage(props) {
                                                 aria-label='password'
                                                 className='password'
                                                 id='password' 
-                                                required
                                                 autoComplete="current-password"
                                                 value={values.password}
                                                 onChange={handleChange}
@@ -183,6 +206,7 @@ export default function EditEmployeePage(props) {
                                     </Form>
                                 )}
                             </Formik>
+                            {error && <p className='error'>{error}</p>}
                         </div>
                     </main>
                 </motion.div>
