@@ -99,6 +99,20 @@ const EmployeesApiService = {
         .then(res =>
             (!res.ok) ? res.json().then(e => Promise.reject(e)) : res.json()
         );
+    },
+    deleteEmployee(id) {
+        console.log('running deleteEmployee()...', `${config.API_ENDPOINT}/employees/${id}`);
+
+        return fetch(`${config.API_ENDPOINT}/employees/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': `bearer ${TokenService.getAuthToken()}`
+            }
+        })
+        .then(res =>
+            (!res.ok) ? res.json().then(e => Promise.reject(e)) : res.json()
+        );
     }
 }
 

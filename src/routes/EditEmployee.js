@@ -1,18 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import EmployeesApiService from '../services/EmployeesApiService';
+import { ApplicationContext } from '../context';
 
 export default function EditEmployeePage(props) {
 
     let params = useParams();
     const employeeId = params.employeeId;
+    const locationId = window.sessionStorage.getItem('location_id');
+
+    const navigate = useNavigate();
+    const { setLocation_id, setEmployees } = useContext(ApplicationContext);
+    const [error, setError] = useState(null);
+    const [buttonState, handleButtonState] = useState('Submit');
+    const [buttonDisabled, handleButtonDisabled] = useState(false);
+    const [employee, setEmployee] = useState(null);
 
     useEffect(() => {
         window.scrollTo(0,0);
         console.log('employeeId', employeeId);
+        setLocation_id(locationId);
         EmployeesApiService.getEmployeeById(employeeId)
             .then(setEmployee)
             .catch(setError);
@@ -22,12 +33,6 @@ export default function EditEmployeePage(props) {
         visible: { opacity: 1 },
         hidden: { opacity: 0 },
     };
-    
-    const navigate = useNavigate();
-    const [error, setError] = useState(null);
-    const [buttonState, handleButtonState] = useState('Submit');
-    const [buttonDisabled, handleButtonDisabled] = useState(false);
-    const [employee, setEmployee] = useState(null);
 
     const location_field = {
         green_hills: "Green Hills",
@@ -77,6 +82,17 @@ export default function EditEmployeePage(props) {
                     .then(navigate(`/location/${employee.location_id}`))
                     .catch(setError);
             })
+    }
+
+    const handleDeleteEmployee = () => {
+        EmployeesApiService.deleteEmployee(employee.id)
+            .then(
+                EmployeesApiService.getEmployeesByLocationId(locationId)
+                    .then(setEmployees)
+                    .catch(setError)
+            )
+            .then(navigate(`/location/${locationId}`))
+            .catch(setError)
     }
 
     console.log('employee from state...', employee);
@@ -211,6 +227,11 @@ export default function EditEmployeePage(props) {
                             </Formik>
                             
                             {error && <p className='error'>{error}</p>}
+                        </div>
+
+
+                        <div className='btn-wrap delete--btn-wrap'>
+                            <Link onClick={handleDeleteEmployee} to={`/location/${locationId}`} className="btn black">Delete Employee</Link>
                         </div>
                     </main>
                 </motion.div>
