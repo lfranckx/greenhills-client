@@ -11,7 +11,7 @@ export default function AddEmployee(props) {
     let params = useParams()
     const locationId = parseInt(params.locationId);
 
-    const { setLocation_id } = useContext(ApplicationContext);
+    const { setLocation_id, setEmployees } = useContext(ApplicationContext);
 
     useEffect(() => {
         window.scrollTo(0,0);
@@ -66,6 +66,11 @@ export default function AddEmployee(props) {
 
         console.log('submitting newEmployee...', newEmployee);
         EmployeesApiService.addNewEmployee(newEmployee)
+            .then(
+                EmployeesApiService.getEmployeesByLocationId(locationId)
+                .then(setEmployees)
+                .catch(setError)
+            )
             .then(navigate(`/location/${locationId}`))
             .catch(setError)
     }
