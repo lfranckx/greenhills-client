@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { motion } from 'framer-motion';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -18,6 +18,8 @@ export default function EditEmployeePage(props) {
             .catch(setError);
     }, []);
 
+    const navigate = useNavigate();
+
     const variants = {
         visible: { opacity: 1 },
         hidden: { opacity: 0 },
@@ -35,7 +37,7 @@ export default function EditEmployeePage(props) {
     const REQEX_UPPER_LOWER_NUMBER = /^(?:(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*)$/;
 
     const formSchema = Yup.object().shape({
-        id: Yup.number().integer("* ID must be an integer").positive(" * ID must be a positive number").required('* Required'),
+        order_number: Yup.number().integer("* Employee Order Number must be an integer").positive(" * Employee Order Number must be a positive number").required('* Required'),
         first_name: Yup.string().max(30, "* 30 maximum characters").required('* Required'),
         last_name: Yup.string().max(30, "* 30 maximum characters").required('* Required'),
         score: Yup.number().integer("* Score must be a number").required('* Required'),
@@ -60,7 +62,7 @@ export default function EditEmployeePage(props) {
 
         const updatedEmployee = {
             id: employee.id,
-            order_number: values.id,
+            order_number: values.order_number,
             name: name,
             score: values.score,
             location_id: locationValue,
@@ -73,6 +75,7 @@ export default function EditEmployeePage(props) {
                 console.log('response from server...', res);
                 EmployeesApiService.getEmployeeById(employeeId)
                     .then(setEmployee)
+                    .then(navigate(`/location/${employee.location_id}`))
                     .catch(setError);
             })
     }
@@ -93,7 +96,7 @@ export default function EditEmployeePage(props) {
                             <h2 className='text-center'>Edit Employee</h2>
                             <Formik 
                                 initialValues={{ 
-                                    id: employee?.id || '', 
+                                    order_number: employee?.order_number || '', 
                                     first_name: employee?.nameArr[0] || '', 
                                     last_name: employee?.nameArr[1] || '', 
                                     score: employee?.score || 0,
@@ -109,15 +112,15 @@ export default function EditEmployeePage(props) {
                                             <label htmlFor='id'>Employee Order Number</label>
                                             <Field 
                                                 type="number" 
-                                                name='id' 
-                                                aria-label='id'
-                                                className='id'
-                                                id='id' 
-                                                autoComplete="id"
-                                                value={values.id}
+                                                name='order_number' 
+                                                aria-label='order_number'
+                                                className='order_number'
+                                                id='order_number' 
+                                                autoComplete="order_number"
+                                                value={values.order_number}
                                                 onChange={handleChange}
                                             />
-                                            <ErrorMessage component="div" className='error' name='id' />
+                                            <ErrorMessage component="div" className='error' name='order_number' />
                                         </div>
 
                                         <div className='field-wrap'>
