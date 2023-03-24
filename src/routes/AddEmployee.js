@@ -1,13 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import AuthApiService from '../services/AuthApiService';
+import EmployeesApiService from '../services/EmployeesApiService';
+import { ApplicationContext } from '../context';
 
 export default function AddEmployee(props) {
+    
+    let params = useParams()
+    const locationId = parseInt(params.locationId);
+
+    const { setLocation_id } = useContext(ApplicationContext);
+
     useEffect(() => {
         window.scrollTo(0,0);
+        console.log('addEmployeePage - locationId', locationId);
+        setLocation_id(locationId);
     }, []);
 
     const variants = {
@@ -16,25 +25,27 @@ export default function AddEmployee(props) {
     };
 
     const navigate = useNavigate();
-    const [message, setMessage] = useState(null);
     const [error, setError] = useState(null);
     const [buttonState, handleButtonState] = useState('Submit');
     const [buttonDisabled, handleButtonDisabled] = useState(false);
-
 
     const location_field = {
         green_hills: "Green Hills",
         woussickett: "Woussickett"
     }
+    const REQEX_UPPER_LOWER_NUMBER = /^(?:(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*)$/;
 
     const formSchema = Yup.object().shape({
         first_name: Yup.string().max(30, "* 30 maximum characters").required('* Required'),
         last_name: Yup.string().max(30, "* 30 maximum characters").required('* Required'),
-        location: Yup.string().oneOf(Object.values(location_field), '* Must select one of the valid options').required('* Required')
+        location: Yup.string().oneOf(Object.values(location_field), '* Must select one of the valid options').required('* Required'),
+        password: Yup.string().min(3, 'Password is too short').max(72, 'Password is too long').matches(REQEX_UPPER_LOWER_NUMBER, 'Password must container at least one uppercase, one lowercase, and one number').required('* Required')
     });
 
     const submitForm = (values) => {
         console.log(values);
+        handleButtonState('Sending...');
+        handleButtonDisabled(true);
 
         let locationValue;
         if (values.location === "Green Hills") {
@@ -54,6 +65,9 @@ export default function AddEmployee(props) {
         }
 
         console.log('submitting newEmployee...', newEmployee);
+        EmployeesApiService.addNewEmployee(newEmployee)
+            .then(navigate(`/location/${locationId}`))
+            .catch(setError)
     }
 
     return (
@@ -141,7 +155,6 @@ export default function AddEmployee(props) {
                             </Form>
                         </Formik>
 
-                        {message && <p className='message'>{message}</p>}
                         {error && <p className='error'>{error}</p>}
                     </div>
                 </main>

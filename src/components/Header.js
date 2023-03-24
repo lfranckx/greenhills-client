@@ -55,13 +55,13 @@ export default function Header(props) {
                             <Link to={`/edit-employees/${location_id}`} onClick={() => {setActive(!active)}} className='btn blue'>Edit Employees</Link>
                         </li>
                         <li>
-                            <Link to="/add-employee" onClick={() => {setActive(!active)}} className='btn blue'>Add Employee</Link>
+                            <Link to={`/add-employee/${location_id}`} onClick={() => {setActive(!active)}} className='btn blue'>Add Employee</Link>
                         </li>
                         <li>
-                            <Link to="/reports" onClick={() => {setActive(!active)}} className='btn orange'>Reports</Link>
+                            <Link to={`/reports/${location_id}`} onClick={() => {setActive(!active)}} className='btn orange'>Reports</Link>
                         </li>
                         <li>
-                            <Link to="/add-user" onClick={() => {setActive(!active)}} className='btn blue'>Add New Login</Link>
+                            <Link to={`/add-user/${location_id}`} onClick={() => {setActive(!active)}} className='btn blue'>Add New Login</Link>
                         </li>
                         <li>
                             <Link to="/" onClick={handleLogOut} className='btn black'>Sign Out</Link>

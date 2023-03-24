@@ -16,7 +16,7 @@ export default function PrintTicketsPage(props) {
         hidden: { opacity: 0 },
     }
     
-    const { error, setError, employees, setEmployees, location_id, setLocation_id } = useContext(ApplicationContext);
+    const { error, setError, employees, setEmployees, setLocation_id } = useContext(ApplicationContext);
     const [date, setDate ] = useState(new Date());
 
     useEffect(() => {

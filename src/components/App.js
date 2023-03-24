@@ -19,9 +19,9 @@ function App() {
         <Route element={<PrivateRoutes />} >
           <Route path='/location/:locationId' element={<Dashboard />} />
           <Route path='/edit-employees/:locationId' element={<DashboardEdit />} />
-          <Route path='/add-user' element={<AddUserPage />} />
+          <Route path='/add-user/:locationId' element={<AddUserPage />} />
           <Route path='/edit-employee/:employeeId' element={<EditEmployee />} />
-          <Route path='/add-employee' element={<AddEmployee />} />
+          <Route path='/add-employee/:locationId' element={<AddEmployee />} />
         </Route>
 
         <Route element={<PublicOnlyRoutes />} >

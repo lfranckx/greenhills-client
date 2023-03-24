@@ -18,13 +18,12 @@ export default function EditEmployeePage(props) {
             .catch(setError);
     }, []);
 
-    const navigate = useNavigate();
-
     const variants = {
         visible: { opacity: 1 },
         hidden: { opacity: 0 },
     };
-
+    
+    const navigate = useNavigate();
     const [error, setError] = useState(null);
     const [buttonState, handleButtonState] = useState('Submit');
     const [buttonDisabled, handleButtonDisabled] = useState(false);

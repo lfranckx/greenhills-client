@@ -59,15 +59,14 @@ const EmployeesApiService = {
 
                 // Set location based on location_id
                 if (employee.location_id === "1") {
-                    employee.location = "Green Hills"
+                    employee.location = "Green Hills";
                 }
                 if (employee.location_id === "2") {
-                    employee.location = "Woussickett"
+                    employee.location = "Woussickett";
                 }
                 return employee;
-            }
-            )
-        })
+            });
+        });
     },
     updateEmployee(employee) {
         console.log('running updateEmployee()...', `${config.API_ENDPOINT}/employees/${employee.id}`);
@@ -84,6 +83,22 @@ const EmployeesApiService = {
         .then(res =>
             (!res.ok) ? res.json().then(e => Promise.reject(e)) : res.json()
         )
+    },
+    addNewEmployee(employee) {
+        console.log('running addNewEmployee()...', `${config.API_ENDPOINT}/employees`);
+        console.log('sending employee data...', employee);
+
+        return fetch(`${config.API_ENDPOINT}/employees`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': `bearer ${TokenService.getAuthToken()}`
+            },
+            body: JSON.stringify(employee)
+        })
+        .then(res =>
+            (!res.ok) ? res.json().then(e => Promise.reject(e)) : res.json()
+        );
     }
 }
 
