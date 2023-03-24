@@ -59,7 +59,8 @@ export default function EditEmployeePage(props) {
         const name = `${values.first_name} ${values.last_name}`;
 
         const updatedEmployee = {
-            id: values.id,
+            id: employee.id,
+            order_number: values.id,
             name: name,
             score: values.score,
             location_id: locationValue,
@@ -75,6 +76,8 @@ export default function EditEmployeePage(props) {
                     .catch(setError);
             })
     }
+
+    console.log('employee from state...', employee);
 
     if (employee) {
         return (
@@ -103,7 +106,7 @@ export default function EditEmployeePage(props) {
                                 {({ values, handleChange }) => (
                                     <Form id='edit-employee-form'>
                                         <div className='field-wrap'>
-                                            <label htmlFor='id'>Employee ID</label>
+                                            <label htmlFor='id'>Employee Order Number</label>
                                             <Field 
                                                 type="number" 
                                                 name='id' 

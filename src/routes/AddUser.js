@@ -88,6 +88,7 @@ export default function AddUser(props) {
                                         className='username'
                                         id='username' 
                                         required
+                                        autoComplete='username'
                                     />
                                     <ErrorMessage component="div" className='error' name='username' />
                                 </div>
@@ -100,6 +101,7 @@ export default function AddUser(props) {
                                         className='password'
                                         id='password' 
                                         required
+                                        autoComplete='current-password'
                                     />
                                     <ErrorMessage component="div" className='error' name='password' />
                                 </div>
@@ -112,6 +114,7 @@ export default function AddUser(props) {
                                         className='confirm_password'
                                         id='confirm_password' 
                                         required
+                                        autoComplete='confirm-password'
                                     />
                                     <ErrorMessage component="div" className='error' name='confirm_password' />
                                 </div>
@@ -124,6 +127,7 @@ export default function AddUser(props) {
                                         className='location'
                                         id='location' 
                                         required
+                                        autoComplete='location'
                                     >
                                         <option value=''>Select an Option</option>
                                         <option value='Green Hills'>Green Hills</option>

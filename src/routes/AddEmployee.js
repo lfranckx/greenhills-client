@@ -82,6 +82,7 @@ export default function AddEmployee(props) {
                                         className='first_name'
                                         id='first_name' 
                                         required
+                                        autoComplete='given-name'
                                     />
                                     <ErrorMessage component="div" className='error' name='first_name' />
                                 </div>
@@ -95,6 +96,7 @@ export default function AddEmployee(props) {
                                         className='last_name'
                                         id='last_name' 
                                         required
+                                        autoComplete='surname'
                                     />
                                     <ErrorMessage component="div" className='error' name='last_name' />
                                 </div>
@@ -108,6 +110,7 @@ export default function AddEmployee(props) {
                                         className='location'
                                         id='location' 
                                         required
+                                        autoComplete="location"
                                     >
                                         <option value=''>Select an Option</option>
                                         <option value='Green Hills'>Green Hills</option>
@@ -125,6 +128,7 @@ export default function AddEmployee(props) {
                                         className='password'
                                         id='password' 
                                         required
+                                        autoComplete="current-password"
                                     />
                                     <ErrorMessage component="div" className='error' name='password' />
                                 </div>

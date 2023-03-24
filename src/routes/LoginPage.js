@@ -69,6 +69,7 @@ export default function LoginPage(props) {
                                         className='username'
                                         id='username' 
                                         required
+                                        autoComplete="username"
                                     />
                                     <ErrorMessage component="div" className='error' name='username' />
                                 </div>
@@ -81,7 +82,7 @@ export default function LoginPage(props) {
                                         aria-label='password'
                                         className='password'
                                         id='password' 
-                                        autoComplete="on"
+                                        autoComplete="current-password"
                                         required
                                     />
                                     <ErrorMessage component="div" className='error' name='password' />

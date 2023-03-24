@@ -71,9 +71,12 @@ const EmployeesApiService = {
     },
     updateEmployee(employee) {
         console.log('running updateEmployee()...', `${config.API_ENDPOINT}/employees/${employee.id}`);
+        console.log('sending employee data...', employee);
 
         return fetch(`${config.API_ENDPOINT}/employees/${employee.id}`, {
+            method: 'PATCH',
             headers: {
+                'Content-Type': 'application/json',
                 'authorization': `bearer ${TokenService.getAuthToken()}`
             },
             body: JSON.stringify(employee)
