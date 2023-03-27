@@ -9,11 +9,11 @@ import { ApplicationContext } from '../context';
 
 export default function EditEmployeePage(props) {
 
+    const navigate = useNavigate();
     let params = useParams();
     const employeeId = params.employeeId;
     const locationId = window.sessionStorage.getItem('location_id');
 
-    const navigate = useNavigate();
     const { setLocation_id, setEmployees } = useContext(ApplicationContext);
     const [error, setError] = useState(null);
     const [buttonState, handleButtonState] = useState('Submit');
@@ -22,7 +22,7 @@ export default function EditEmployeePage(props) {
 
     useEffect(() => {
         window.scrollTo(0,0);
-        console.log('employeeId', employeeId);
+        console.log('employeeId...', employeeId);
         setLocation_id(locationId);
         EmployeesApiService.getEmployeeById(employeeId)
             .then(setEmployee)

@@ -15,7 +15,7 @@ export default function EmployeesListItem(props) {
                     <p>{employee.score}</p>
                 </div>
                 <div className='btn-wrap'>
-                    <Link to={'/'} className='btn green'>Print Tickets</Link>
+                    <Link to={`/print-tickets/${employee.id}`} className='btn green'>Print Tickets</Link>
                 </div>
             </li>
         </>

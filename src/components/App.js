@@ -10,6 +10,7 @@ import DashboardEdit from '../routes/DashboardEdit';
 import AddUserPage from '../routes/AddUser';
 import AddEmployee from '../routes/AddEmployee';
 import EditEmployee from '../routes/EditEmployee';
+import PrintTickets from '../routes/PrintTickets';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path='/add-user/:locationId' element={<AddUserPage />} />
           <Route path='/edit-employee/:employeeId' element={<EditEmployee />} />
           <Route path='/add-employee/:locationId' element={<AddEmployee />} />
+          <Route path='/print-tickets/:employeeId' element={<PrintTickets />} />
         </Route>
 
         <Route element={<PublicOnlyRoutes />} >

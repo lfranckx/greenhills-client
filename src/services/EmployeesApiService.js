@@ -17,6 +17,7 @@ const EmployeesApiService = {
         console.log('getting employees by location ID...', location_id);
         return fetch(`${config.API_ENDPOINT}/employees/location/${location_id}`, {
           headers: {
+            'Content-Type': 'application/json',
             'authorization': `bearer ${TokenService.getAuthToken()}`
           }
         })
@@ -40,6 +41,7 @@ const EmployeesApiService = {
 
         return fetch(`${config.API_ENDPOINT}/employees/${employeeId}`, {
             headers: {
+                'Content-Type': 'application/json',
                 'authorization': `bearer ${TokenService.getAuthToken()}`
             }
         })
