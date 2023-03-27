@@ -79,7 +79,7 @@ export default function EditEmployeePage(props) {
                 console.log('response from server...', res);
                 EmployeesApiService.getEmployeeById(employeeId)
                     .then(setEmployee)
-                    .then(navigate(`/location/${employee.location_id}`))
+                    .then(navigate(`/edit-employees/${employee.location_id}`))
                     .catch(setError);
             })
     }

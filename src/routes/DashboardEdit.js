@@ -41,6 +41,8 @@ export default function EditEmployeesPage(props) {
         }
 
         if (employees.length > 0) {
+            // sort employees array by order_number property
+            employees.sort((a, b) => a.order_number - b.order_number);
             return (
                 <ul className='employees-list'>
                     {employees.map((employee, key) => 

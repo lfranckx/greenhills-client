@@ -2,22 +2,31 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { ApplicationContext } from '../context';
 import EmployeesApiService from '../services/EmployeesApiService';
+import TicketsApiService from '../services/TicketsApiService';
 import { motion } from 'framer-motion';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 export default function PrintTickets(props) {
 
+    const variants = {
+        visible: { opacity: 1 },
+        hidden: { opacity: 0 },
+    };
+
     const navigate = useNavigate();
     let params = useParams();
     const employeeId = params.employeeId;
     const locationId = window.sessionStorage.getItem('location_id');
     
-    const { setLocation_id, setEmployees } = useContext(ApplicationContext);
+    const { setLocation_id, setEmployees, setTickets } = useContext(ApplicationContext);
     
     const [error, setError] = useState(null);
     const [buttonDisabled, handleButtonDisabled] = useState(false);
+    const [showField, setShowField] = useState(false);
+    const [showFieldBtnText, setShowFieldBtnText] = useState("Add Custom Message")
     const [employee, setEmployee] = useState(null);
+    const [numOfTickets, setNumOfTickets] = useState(null);
 
     useEffect(() => {
         window.scrollTo(0,0);
@@ -32,17 +41,45 @@ export default function PrintTickets(props) {
         custom_message: Yup.string().max(800, "* Message is too long.")
     });
 
-    const submitForm = (values) => {
-        console.log('submiting form values...', values);
-        handleButtonDisabled(true);
+    const handleShowFieldButton = () => {
+        setShowField(!showField);
+        setShowFieldBtnText(showField ? 'Add Custom Message' : 'Cancel');
     }
 
-    const variants = {
-        visible: { opacity: 1 },
-        hidden: { opacity: 0 },
-    };
+    const submitForm = (values) => {
+        console.log('form values...', values);
+        // handleButtonDisabled(true);
+        setEmployee(prevState => ({...prevState, score: prevState.score + numOfTickets}));
+        const ticketsToPrint = {
+            custom_message: values.custom_message,
+            employee_name: employee.name,
+            employee_id: employee.id,
+            location_id: parseInt(employee.location_id),
+            numOfTickets: numOfTickets
+        }
+
+        // for (let i = 0; i < numOfTickets; i++) {
+        //     window.print();
+        // }
+        
+        console.log('sending ticket to service file...', ticketsToPrint);
+        TicketsApiService.addNewTickets(ticketsToPrint)
+        .then(setTickets)
+        .catch(setError);
+
+        console.log('sending new employee score to service file...', employee);
+        EmployeesApiService.updateEmployee(employee)
+        .then(res => {
+            console.log('response from server for updating employee...', res);
+            EmployeesApiService.getEmployeeById(employeeId)
+            .then(setEmployee)
+            .catch(setError);
+        })
+        .catch(setError);
+    }
 
     console.log('employee from state...', employee);
+
     if (employee) {
         return (
             <>
@@ -54,8 +91,8 @@ export default function PrintTickets(props) {
                 >
                     <main id='form-page'>
                         <div className='form-wrap cream'>
-                            <h2>Print Tickets for {employee.name}</h2>
-                            <h3>Current Score: {employee.score}</h3>
+                            <h2 className='text-center'>Print Tickets for {employee.name}</h2>
+                            <h3 className='text-center'>Current Score: {employee.score}</h3>
 
                             <Formik 
                                 initialValues={{ 
@@ -65,28 +102,53 @@ export default function PrintTickets(props) {
                                 validationSchema={formSchema}
                                 onSubmit={submitForm}
                             >
-                                <div className='btn-wrap'>
-                                    <button onClick={setEmployee(employee.score += 1)} className='btn green' type='submit' disabled={buttonDisabled}>1 Ticket</button>
-                                </div>
+                                {({values, handleChange}) => (
+                                    <Form id='print-tickets-form'>
+                                        <div className='form-content-wrap'>
+                                            <div className='btn-wrap'>
+                                                <button 
+                                                    onClick={() => setNumOfTickets(1)} 
+                                                    className='btn green' disabled={buttonDisabled} type='submit'
+                                                >
+                                                        1 Ticket
+                                                </button>
+                                            </div>
 
-                                <div className='btn-wrap'>
-                                    <button onClick={setEmployee(employee.score += 10)} className='btn green large' type='submit' disabled={buttonDisabled}>10 Tickets</button>
-                                </div>
+                                            <div className='btn-wrap'>
+                                                <button 
+                                                    onClick={() => setNumOfTickets(10)} 
+                                                    className='btn green large' disabled={buttonDisabled} type='submit'
+                                                >
+                                                        10 Tickets
+                                                </button>
+                                            </div>
 
-                                <div className='field-wrap'>
-                                <label htmlFor='custom_message'>Custom Message</label>
-                                    <Field 
-                                        as='textarea'
-                                        rows='10'
-                                        name='custom_message'
-                                        aria-label='custom_message'
-                                        className='custom_message'
-                                        id='custom_message'
-                                        placeholder='Write a custom message to print onto the ticket'
-                                    />
-                                    <ErrorMessage component="div" className='error' name='custom_message' />
-                                </div>
+                                            <>
+                                                {showField && <div className='field-wrap'>
+                                                <label htmlFor='custom_message'>Custom Message</label>
+                                                    <Field 
+                                                        as='textarea'
+                                                        rows='10'
+                                                        name='custom_message'
+                                                        aria-label='custom_message'
+                                                        className='custom_message'
+                                                        id='custom_message'
+                                                        placeholder='Write a custom message to print onto the ticket'
+                                                        value={values.custom_message}
+                                                        onChange={handleChange}
+                                                    />
+                                                    <ErrorMessage component="div" className='error' name='custom_message' />
+                                                </div>}
+                                            </>
+                                        </div>
+                                    </Form>
+                                )}
                             </Formik>
+
+                            <div className='btn-wrap'>
+                                <button className='btn blue' onClick={handleShowFieldButton}>{showFieldBtnText}</button>
+                            </div>
+                            
                             {error && <p className='error'>{error}</p>}
                         </div>
                     </main>

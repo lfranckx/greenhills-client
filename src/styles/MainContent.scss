@@ -51,6 +51,10 @@
         max-width: 520px;
         box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.24);
 
+        &.cream {
+            background: $cream;
+        }
+
         @media only screen and (max-width: 750px) {
                 min-width: 100%;
                 width: 100%;

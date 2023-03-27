@@ -76,6 +76,10 @@ input, select, textarea {
         cursor: not-allowed;
     }
 
+    &.large {
+        min-height: 160px;
+    }
+
     &.green {
         background: $green;
     }
