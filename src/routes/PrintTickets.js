@@ -20,7 +20,7 @@ export default function PrintTickets(props) {
     const employeeId = params.employeeId;
     const locationId = window.sessionStorage.getItem('location_id');
     
-    const { setLocation_id, setEmployees, setTickets, tickets } = useContext(ApplicationContext);
+    const { setLocation_id, setTickets, tickets } = useContext(ApplicationContext);
     
     const [error, setError] = useState(null);
     const [buttonDisabled, handleButtonDisabled] = useState(false);
@@ -32,12 +32,17 @@ export default function PrintTickets(props) {
 
     useEffect(() => {
         window.scrollTo(0,0);
-        console.log('employeeId...', employeeId);
         setLocation_id(locationId);
         EmployeesApiService.getEmployeeById(employeeId)
             .then(setEmployee)
             .catch(setError);
-    }, []);
+
+        if (showPrintable) {
+            setTimeout(() => {
+                window.print();
+            }, 500);
+        }
+    }, [showPrintable]);
 
     const formSchema = Yup.object().shape({
         custom_message: Yup.string().max(800, "* Message is too long.")
@@ -49,7 +54,6 @@ export default function PrintTickets(props) {
     }
 
     const submitForm = (values) => {
-        console.log('form values...', values);
         handleButtonDisabled(true);
         const ticketsToPrint = {
             custom_message: values.custom_message,
@@ -63,8 +67,6 @@ export default function PrintTickets(props) {
         employee.score = parseInt(employee.score);
         employee.score += parseInt(numOfTickets);
         
-        console.log('sending ticket to service file...', ticketsToPrint);
-        console.log('sending new employee score to service file...', employee);
         TicketsApiService.addNewTickets(ticketsToPrint)
         .then(setTickets)
         .then(() => {
@@ -74,12 +76,8 @@ export default function PrintTickets(props) {
         })
         .then(handleButtonDisabled(false))
         .then(() => setShowPrintable(true))
-        .then(() => window.print())
         .catch(setError);
     }
-
-    console.log('employee from state...', employee);
-    console.log('tickets from context....', tickets);
 
     if (employee) {
         return (

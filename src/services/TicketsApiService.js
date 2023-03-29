@@ -3,7 +3,6 @@ import TokenService from "./TokenService";
 
 const TicketsApiService = {
     getTickets() {
-        console.log('getting tickets from...', `${config.API_ENDPOINT}/tickets`);
         return fetch(`${config.API_ENDPOINT}/tickets`, {
             headers: {
                 'Content-Type': 'application/json',
@@ -15,7 +14,6 @@ const TicketsApiService = {
         });
     },
     getTicketsByLocationId(location_id) {
-        console.log('getting tickets by location id...', `${config.API_ENDPOINT}/tickets/location/${location_id}`);
         return fetch(`${config.API_ENDPOINT}/tickets/location/${location_id}`, {
             headers: {
                 'Content-Type': 'application/json',
@@ -27,7 +25,6 @@ const TicketsApiService = {
         });
     },
     getTicketById(id) {
-        console.log('getting ticket by ticket id...', `${config.API_ENDPOINT}/tickets/${id}`);
         return fetch(`${config.API_ENDPOINT}/tickets/${id}`, {
             headers: {
                 'Content-Type': 'application/json',
@@ -39,8 +36,6 @@ const TicketsApiService = {
         });
     },
     addNewTickets(tickets) {
-        console.log(`Adding a new ticket...`, tickets);
-        console.log(`sending new ticket to...`, `${config.API_ENDPOINT}/tickets`);
         return fetch(`${config.API_ENDPOINT}/tickets`, {
             method: 'POST',
             headers: {
@@ -50,7 +45,6 @@ const TicketsApiService = {
             body: JSON.stringify(tickets)
         })
         .then(res => {
-            console.log('response from server for adding tickets...', res);
             if (!res.ok) {
                 return res.json().then(e => Promise.reject(e));
             }
@@ -58,7 +52,6 @@ const TicketsApiService = {
         });
     },
     deleteTicket(ticketId) {
-        console.log('Deleting ticket by id...', `${config.API_ENDPOINT}/tickets/${ticketId}`);
         return fetch(`${config.API_ENDPOINT}/tickets`, {
             method: 'DELETE',
             headers: {

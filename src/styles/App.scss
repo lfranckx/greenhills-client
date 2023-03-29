@@ -112,9 +112,14 @@ input, select, textarea {
     color: $blue;
 }
 
+#printable,
+#printable * {
+    visibility: hidden;
+}
+
 @media print {
     body * {
-        visibility: hidden !important;
+        visibility: hidden;
     }
 
     #printable,

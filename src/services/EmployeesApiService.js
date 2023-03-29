@@ -14,7 +14,6 @@ const EmployeesApiService = {
         );
     },
     getEmployeesByLocationId(location_id) {
-        console.log('getting employees by location ID...', location_id);
         return fetch(`${config.API_ENDPOINT}/employees/location/${location_id}`, {
           headers: {
             'Content-Type': 'application/json',
@@ -37,8 +36,6 @@ const EmployeesApiService = {
         });
     },
     getEmployeeById(employeeId) {
-        console.log('running getEmployeeById()...', `${config.API_ENDPOINT}/employees/${employeeId}`);
-
         return fetch(`${config.API_ENDPOINT}/employees/${employeeId}`, {
             headers: {
                 'Content-Type': 'application/json',
@@ -71,8 +68,6 @@ const EmployeesApiService = {
         });
     },
     updateEmployee(employee) {
-        console.log('running updateEmployee()...', `${config.API_ENDPOINT}/employees/${employee.id}`);
-        console.log('sending employee data...', employee);
         return fetch(`${config.API_ENDPOINT}/employees/${employee.id}`, {
             method: 'PATCH',
             headers: {
@@ -86,15 +81,11 @@ const EmployeesApiService = {
                 return res.json().then(e => Promise.reject(e));
             }
             return res.json().then(employee =>  {
-                console.log('employee update response', employee);
                 return employee;
             })
         });
     },
     addNewEmployee(employee) {
-        console.log('running addNewEmployee()...', `${config.API_ENDPOINT}/employees`);
-        console.log('sending employee data...', employee);
-
         return fetch(`${config.API_ENDPOINT}/employees`, {
             method: 'POST',
             headers: {
@@ -108,8 +99,6 @@ const EmployeesApiService = {
         );
     },
     deleteEmployee(id) {
-        console.log('running deleteEmployee()...', `${config.API_ENDPOINT}/employees/${id}`);
-
         return fetch(`${config.API_ENDPOINT}/employees/${id}`, {
             method: 'DELETE',
             headers: {

@@ -20,7 +20,6 @@ export default function PrintTicketsPage(props) {
     const [date, setDate ] = useState(new Date());
 
     useEffect(() => {
-        console.log('Dasbhoard component mounting...');
         setLocation_id(locationId);
         EmployeesApiService.getEmployeesByLocationId(locationId)
             .then(setEmployees)

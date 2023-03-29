@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export default function Printable(props) {
     const { ticket, location_id, } = props;
@@ -10,7 +10,7 @@ export default function Printable(props) {
     if (parseInt(location_id) === 2) {
         location = "Woussickett";
     }
-
+    
     return (
         <div id='printable' className='ticket text-center'>
             <div className='ticket-code'>

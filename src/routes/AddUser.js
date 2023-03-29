@@ -50,10 +50,8 @@ export default function AddUser(props) {
             location_id: locationValue
         }
 
-        console.log('submitting form newUser...', newUser);
         AuthApiService.postUser(newUser)
-        .then(res => {
-            console.log('Server Response...', res);
+        .then(() => {
             setMessage('New user added. If you would like to change accounts sign out and login with the new user credentials.');
             handleButtonState('Sent');
         })

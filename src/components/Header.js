@@ -7,10 +7,7 @@ import TokenService from '../services/TokenService';
 import IdleService from '../services/IdleService';
 
 export default function Header(props) {
-    useEffect(() => {
-        
-    }, []);
-
+    
     const handleLogOut = () => {
         window.sessionStorage.removeItem('location_id');
         TokenService.clearAuthToken();
@@ -21,8 +18,6 @@ export default function Header(props) {
 
     const { location_id, setLocation_id } = useContext(ApplicationContext);
     const [active, setActive] = useState(false);
-
-    console.log('getting location_id inside header compnent...', location_id);
 
     return (
         <>

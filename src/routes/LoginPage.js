@@ -34,7 +34,6 @@ export default function LoginPage(props) {
 
         AuthApiService.postLogin({ username: values.username, password: values.password })
             .then(res => {
-                console.log('response from AuthApiService...', res);
                 setLocation_id(res.location_id)
                 navigate(`/location/${res.location_id}`);
             })

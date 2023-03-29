@@ -15,7 +15,6 @@ export default function AddEmployee(props) {
 
     useEffect(() => {
         window.scrollTo(0,0);
-        console.log('addEmployeePage - locationId', locationId);
         setLocation_id(locationId);
     }, []);
 

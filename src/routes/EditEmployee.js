@@ -22,7 +22,6 @@ export default function EditEmployeePage(props) {
 
     useEffect(() => {
         window.scrollTo(0,0);
-        console.log('employeeId...', employeeId);
         setLocation_id(locationId);
         EmployeesApiService.getEmployeeById(employeeId)
             .then(setEmployee)
@@ -50,7 +49,6 @@ export default function EditEmployeePage(props) {
     });
 
     const submitForm = (values) => {
-        console.log('submitForm values...', values);
         handleButtonState('Sending...');
         handleButtonDisabled(true);
 
@@ -73,10 +71,8 @@ export default function EditEmployeePage(props) {
             password: values.password
         }
 
-        console.log('submitting updatedEmployee', updatedEmployee);
         EmployeesApiService.updateEmployee(updatedEmployee)
-            .then(res => {
-                console.log('response from server...', res);
+            .then(() => {
                 EmployeesApiService.getEmployeeById(employeeId)
                     .then(setEmployee)
                     .then(navigate(`/edit-employees/${employee.location_id}`))
@@ -94,8 +90,6 @@ export default function EditEmployeePage(props) {
             .then(navigate(`/location/${locationId}`))
             .catch(setError)
     }
-
-    console.log('employee from state...', employee);
 
     if (employee) {
         return (
