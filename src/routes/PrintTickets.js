@@ -118,7 +118,7 @@ export default function PrintTickets(props) {
                                                     onClick={() => setNumOfTickets(3)} 
                                                     className='btn green large' disabled={buttonDisabled} type='submit'
                                                 >
-                                                        Three Tickets
+                                                        3 Tickets
                                                 </button>
                                             </div>
 
