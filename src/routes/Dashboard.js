@@ -77,6 +77,10 @@ export default function PrintTicketsPage(props) {
                 <section className='main-content'>
                     {error ? <h2 className='text-center error'>There was an error try again.</h2> : renderEmployees()}
                 </section>
+
+                <div className='bottom btn-wrap'>
+                    <Link to={`/reports/${locationId}`} className='btn orange align-right'>Reports</Link>
+                </div>
             </main>
         </motion.div>
     );

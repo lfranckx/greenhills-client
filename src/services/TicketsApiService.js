@@ -35,6 +35,19 @@ const TicketsApiService = {
             (!res.ok) ? res.json().then(e => Promise.reject(e)) : res.json()    
         });
     },
+    getTicketsBySelectedDates(dates, location_id) {
+        return fetch(`${config.API_ENDPOINT}/tickets/location/${location_id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': `bearer ${TokenService.getAuthToken()}`
+            },
+            body: JSON.stringify(dates)
+        })
+        .then(res => {
+            (!res.ok) ? res.json().then(e => Promise.reject(e)) : res.json()    
+        })
+    },
     addNewTickets(tickets) {
         return fetch(`${config.API_ENDPOINT}/tickets`, {
             method: 'POST',

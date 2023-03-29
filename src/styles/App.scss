@@ -79,7 +79,6 @@ input, select, textarea {
     &.large {
         min-height: 160px;
     }
-
     &.green {
         background: $green;
     }
@@ -100,6 +99,18 @@ input, select, textarea {
     padding: 0 1rem;
 }
 
+.align-right {
+    margin-left: auto;
+}
+
+.bottom {
+    margin-top: 32px;
+}
+
+.error {
+    color: $blue;
+}
+
 .text-center {
     text-align: center;
 }
@@ -108,9 +119,30 @@ input, select, textarea {
     text-transform: uppercase;
 }
 
-.error {
-    color: $blue;
+/* Loader Aninimation */
+.loader {
+    display: flex;
+    justify-content: center;
+    margin: 50px 0;
+    font-size: 75px;
 }
+  
+.spinner {
+    display: inline-block;
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    border: 15px solid rgba(145, 216, 189, 0.4);
+    border-top: 15px solid #a2deb7;
+    animation: spin 2s infinite;
+}
+  
+@keyframes spin {
+    100%{
+      transform: rotate(360deg);
+    }
+}
+
 
 #printable,
 #printable * {
