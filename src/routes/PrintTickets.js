@@ -115,21 +115,12 @@ export default function PrintTickets(props) {
 
                                             <div className='btn-wrap'>
                                                 <button 
-                                                    onClick={() => setNumOfTickets(3)} 
-                                                    className='btn green large' disabled={buttonDisabled} type='submit'
-                                                >
-                                                        3 Tickets
-                                                </button>
-                                            </div>
-
-                                            {/* <div className='btn-wrap'>
-                                                <button 
                                                     onClick={() => setNumOfTickets(10)} 
                                                     className='btn green large' disabled={buttonDisabled} type='submit'
                                                 >
                                                         10 Tickets
                                                 </button>
-                                            </div> */}
+                                            </div>
 
                                             <>
                                                 {showField && <div className='field-wrap'>
