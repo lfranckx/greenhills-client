@@ -20,7 +20,6 @@ export default function Printable(props) {
             <div className='ticket-date-time'>
                 <p>{location} GC Hole #7</p>
                 <p>{ticket.date_created}</p>
-                <p>Employee #{ticket.employee_id}: {ticket.employee_name}</p>
             </div>
 
             <div className='default-message text-center'>
