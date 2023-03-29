@@ -151,6 +151,9 @@
 
     .ticket {
         padding: 10px;
+        min-height: 800px;
+        max-height: 800px;
+        height: 1200px;
 
         .ticket-code {
             margin-top: 10px;
