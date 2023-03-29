@@ -63,7 +63,8 @@ export default function PrintTickets(props) {
         // }
 
         employee.password = 'Par71';
-        employee.score = numOfTickets;
+        employee.score = parseInt(employee.score);
+        employee.score += parseInt(numOfTickets);
         
         console.log('sending ticket to service file...', ticketsToPrint);
         console.log('sending new employee score to service file...', employee);
