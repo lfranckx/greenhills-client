@@ -18,7 +18,7 @@ export default function Printable(props) {
             </div>
 
             <div className='ticket-date-time'>
-                <p>{location} GC Hole #7</p>
+                <p>{location} Golf Course Hole #7</p>
                 <p>{ticket.date_created}</p>
             </div>
 
