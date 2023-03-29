@@ -6,6 +6,7 @@ import TicketsApiService from '../services/TicketsApiService';
 import { motion } from 'framer-motion';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import Printable from '../components/Printable';
 
 export default function PrintTickets(props) {
 
@@ -27,6 +28,7 @@ export default function PrintTickets(props) {
     const [showFieldBtnText, setShowFieldBtnText] = useState("Add Custom Message")
     const [employee, setEmployee] = useState(null);
     const [numOfTickets, setNumOfTickets] = useState(null);
+    const [showPrintable, setShowPrintable] = useState(false);
 
     useEffect(() => {
         window.scrollTo(0,0);
@@ -48,8 +50,7 @@ export default function PrintTickets(props) {
 
     const submitForm = (values) => {
         console.log('form values...', values);
-        // handleButtonDisabled(true);
-        setEmployee(prevState => ({...prevState, score: prevState.score + numOfTickets}));
+        handleButtonDisabled(true);
         const ticketsToPrint = {
             custom_message: values.custom_message,
             employee_name: employee.name,
@@ -57,10 +58,6 @@ export default function PrintTickets(props) {
             location_id: parseInt(employee.location_id),
             numOfTickets: numOfTickets
         }
-
-        // for (let i = 0; i < numOfTickets; i++) {
-        //     window.print();
-        // }
 
         employee.password = 'Par71';
         employee.score = parseInt(employee.score);
@@ -70,16 +67,14 @@ export default function PrintTickets(props) {
         console.log('sending new employee score to service file...', employee);
         TicketsApiService.addNewTickets(ticketsToPrint)
         .then(setTickets)
-        .then(
+        .then(() => {
             EmployeesApiService.updateEmployee(employee)
             .then(setEmployee)
-            .then(
-                EmployeesApiService.getEmployeeById(employeeId)
-                .then(setEmployee)
-                .catch(setError)
-            )
             .catch(setError)
-        )
+        })
+        .then(handleButtonDisabled(false))
+        .then(() => setShowPrintable(true))
+        .then(() => window.print())
         .catch(setError);
     }
 
@@ -157,6 +152,12 @@ export default function PrintTickets(props) {
                             
                             {error && <p className='error'>{error}</p>}
                         </div>
+
+                        {showPrintable && <div className='printable-wrap'> 
+                        {tickets.map((ticket) => (
+                            <Printable key={ticket.id} ticket={ticket} location_id={locationId} />
+                        ))}
+                        </div>}
                     </main>
                 </motion.div>
             </>

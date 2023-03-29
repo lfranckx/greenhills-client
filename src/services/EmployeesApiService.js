@@ -81,9 +81,15 @@ const EmployeesApiService = {
             },
             body: JSON.stringify(employee)
         })
-        .then(res =>
-            (!res.ok) ? res.json().then(e => Promise.reject(e)) : res.json()
-        )
+        .then(res => {
+            if (!res.ok) {
+                return res.json().then(e => Promise.reject(e));
+            }
+            return res.json().then(employee =>  {
+                console.log('employee update response', employee);
+                return employee;
+            })
+        });
     },
     addNewEmployee(employee) {
         console.log('running addNewEmployee()...', `${config.API_ENDPOINT}/employees`);

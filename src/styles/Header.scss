@@ -7,7 +7,7 @@ header {
     padding: 1rem;
 
     .logo-link {
-        z-index: 2;
+        z-index: 3;
     }
 
     .logo {
@@ -23,6 +23,7 @@ header {
         display: flex;
         flex-direction: column;
         justify-content: center;
+        z-index: 3;
     }
 
     .hamburger {
@@ -30,6 +31,7 @@ header {
         width: 100%;
         -webkit-transition: all ease-in-out .32s;
         transition: all ease-in-out .32s;
+        z-index: 3;
 
         .line {
             position: relative;
@@ -100,7 +102,7 @@ header {
     &.active {
         opacity: 1;
         visibility: visible;
-
+        z-index: 2;
     }
 }
 

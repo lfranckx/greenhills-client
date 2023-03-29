@@ -104,6 +104,21 @@ input, select, textarea {
     text-align: center;
 }
 
+.uppercase {
+    text-transform: uppercase;
+}
+
 .error {
     color: $blue;
+}
+
+@media print {
+    body * {
+        visibility: hidden !important;
+    }
+
+    #printable,
+    #printable * {
+        visibility: visible !important;
+    }
 }
