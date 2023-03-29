@@ -19,7 +19,7 @@ export default function PrintTickets(props) {
     const employeeId = params.employeeId;
     const locationId = window.sessionStorage.getItem('location_id');
     
-    const { setLocation_id, setEmployees, setTickets } = useContext(ApplicationContext);
+    const { setLocation_id, setEmployees, setTickets, tickets } = useContext(ApplicationContext);
     
     const [error, setError] = useState(null);
     const [buttonDisabled, handleButtonDisabled] = useState(false);
@@ -61,24 +61,29 @@ export default function PrintTickets(props) {
         // for (let i = 0; i < numOfTickets; i++) {
         //     window.print();
         // }
+
+        employee.password = 'Par71';
+        employee.score = numOfTickets;
         
         console.log('sending ticket to service file...', ticketsToPrint);
+        console.log('sending new employee score to service file...', employee);
         TicketsApiService.addNewTickets(ticketsToPrint)
         .then(setTickets)
-        .catch(setError);
-
-        console.log('sending new employee score to service file...', employee);
-        EmployeesApiService.updateEmployee(employee)
-        .then(res => {
-            console.log('response from server for updating employee...', res);
-            EmployeesApiService.getEmployeeById(employeeId)
+        .then(
+            EmployeesApiService.updateEmployee(employee)
             .then(setEmployee)
-            .catch(setError);
-        })
+            .then(
+                EmployeesApiService.getEmployeeById(employeeId)
+                .then(setEmployee)
+                .catch(setError)
+            )
+            .catch(setError)
+        )
         .catch(setError);
     }
 
     console.log('employee from state...', employee);
+    console.log('tickets from context....', tickets);
 
     if (employee) {
         return (

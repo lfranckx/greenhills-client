@@ -28,7 +28,7 @@ const TicketsApiService = {
     },
     getTicketById(id) {
         console.log('getting ticket by ticket id...', `${config.API_ENDPOINT}/tickets/${id}`);
-        fetch(`${config.API_ENDPOINT}/tickets/${id}`, {
+        return fetch(`${config.API_ENDPOINT}/tickets/${id}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'authorization': `bearer ${TokenService.getAuthToken()}`
@@ -41,7 +41,7 @@ const TicketsApiService = {
     addNewTickets(tickets) {
         console.log(`Adding a new ticket...`, tickets);
         console.log(`sending new ticket to...`, `${config.API_ENDPOINT}/tickets`);
-        fetch(`${config.API_ENDPOINT}/tickets`, {
+        return fetch(`${config.API_ENDPOINT}/tickets`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -49,13 +49,17 @@ const TicketsApiService = {
             },
             body: JSON.stringify(tickets)
         })
-        .then(res =>
-            (!res.ok) ? res.json().then(e => Promise.reject(e)) : res.json()
-        );
+        .then(res => {
+            console.log('response from server for adding tickets...', res);
+            if (!res.ok) {
+                return res.json().then(e => Promise.reject(e));
+            }
+            return res.json();  
+        });
     },
     deleteTicket(ticketId) {
         console.log('Deleting ticket by id...', `${config.API_ENDPOINT}/tickets/${ticketId}`);
-        fetch(`${config.API_ENDPOINT}/tickets`, {
+        return fetch(`${config.API_ENDPOINT}/tickets`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
