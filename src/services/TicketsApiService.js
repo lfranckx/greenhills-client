@@ -45,7 +45,13 @@ const TicketsApiService = {
             body: JSON.stringify(dates)
         })
         .then(res => {
-            (!res.ok) ? res.json().then(e => Promise.reject(e)) : res.json()    
+            if (!res.ok) {
+                return res.json().then(e => Promise.reject(e));
+            }
+            return res.json();  
+        })
+        .then(data => {
+            return data;
         })
     },
     addNewTickets(tickets) {

@@ -4,7 +4,8 @@ import { ApplicationContext } from '../context';
 import { motion } from 'framer-motion';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import ReportsTable from '../components/ReportsTable';
+import TicketRows from '../components/TicketRows';
+import TicketsApiService from '../services/TicketsApiService';
 
 export default function Reports(props) {
     let params = useParams();
@@ -27,7 +28,9 @@ export default function Reports(props) {
     }, []);
 
     const submitForm = (values) => {
-        console.log('submitForm values....', values);
+        TicketsApiService.getTicketsBySelectedDates(values, locationId)
+        .then(setTickets)
+        .catch(setError);
     }
 
     const variants = {
@@ -45,8 +48,19 @@ export default function Reports(props) {
         }
         if (tickets) {
             return (
-                <div className='reports-wrap'>
-                    <ReportsTable tickets={tickets} />
+                <div className='reports-window'>
+                    <div className='table-header'><h2>Total Tickets: {tickets.length}</h2></div>
+                    <div className='row row-1'>
+                        <p>Ticket ID</p>
+                        <p>Employee #</p>
+                        <p>Employee Name</p>
+                        <p>Location</p>
+                        <p>Date</p>
+                    </div>
+                    {tickets.map((ticket) => {
+                        return <TicketRows key={ticket.id} ticket={ticket} />
+                    })}
+                    
                 </div>
             );
         }
