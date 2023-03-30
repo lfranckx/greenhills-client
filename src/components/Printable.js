@@ -10,6 +10,9 @@ export default function Printable(props) {
     if (parseInt(location_id) === 2) {
         location = "Woussickett";
     }
+
+    const dateCreated = new Date(ticket.date_created);
+    const formattedDate = dateCreated.toLocaleString();
     
     return (
         <div id='printable' className='ticket text-center'>
@@ -19,7 +22,7 @@ export default function Printable(props) {
 
             <div className='ticket-date-time'>
                 <p>{location} Golf Course Hole #7</p>
-                <p>{ticket.date_created}</p>
+                <p>{formattedDate}</p>
             </div>
 
             <div className='default-message text-center'>
