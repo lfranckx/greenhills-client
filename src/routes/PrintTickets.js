@@ -63,7 +63,7 @@ export default function PrintTickets(props) {
             numOfTickets: numOfTickets
         }
 
-        employee.password = 'Par71';
+        employee.password = 'Par71admin!';
         employee.score = parseInt(employee.score);
         employee.score += parseInt(numOfTickets);
         
