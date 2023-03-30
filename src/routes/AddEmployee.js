@@ -71,7 +71,9 @@ export default function AddEmployee(props) {
                 .catch(setError)
             )
             .then(navigate(`/location/${locationId}`))
-            .catch(setError)
+            .catch(err => {
+                setError({ message: err.message });
+            })
     }
 
     return (
@@ -159,7 +161,7 @@ export default function AddEmployee(props) {
                             </Form>
                         </Formik>
 
-                        {error && <p className='error'>{error}</p>}
+                        {error && <p className='error'>{error.message}</p>}
                     </div>
                 </main>
             </motion.div>
