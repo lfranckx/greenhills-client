@@ -55,8 +55,10 @@ export default function AddUser(props) {
             setMessage('New user added. If you would like to change accounts sign out and login with the new user credentials.');
             handleButtonState('Sent');
         })
-        .catch(res => {
-            setError(res.error);
+        .catch(err => {
+            setError({ message: err.message });
+            handleButtonState('Submit');
+            handleButtonDisabled(false);
         });
     }
 
@@ -142,7 +144,7 @@ export default function AddUser(props) {
                             </Form>
                         </Formik>
                         {message && <p className='message'>{message}</p>}
-                        {error && <p className='error'>{error}</p>}
+                        {error && <h3 className='error'>{error.message}</h3>}
                     </div>
                 </main> 
             </motion.div>
