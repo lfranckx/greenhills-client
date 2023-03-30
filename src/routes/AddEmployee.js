@@ -73,6 +73,8 @@ export default function AddEmployee(props) {
             .then(navigate(`/location/${locationId}`))
             .catch(err => {
                 setError({ message: err.message });
+                handleButtonState('Submit');
+                handleButtonDisabled(false);
             })
     }
 

@@ -76,7 +76,11 @@ export default function EditEmployeePage(props) {
                 EmployeesApiService.getEmployeeById(employeeId)
                     .then(setEmployee)
                     .then(navigate(`/edit-employees/${employee.location_id}`))
-                    .catch(setError);
+                    .catch(err => {
+                        setError({ message: err.message });
+                        handleButtonState('Submit');
+                        handleButtonDisabled(false);
+                    });
             })
     }
 
@@ -85,10 +89,14 @@ export default function EditEmployeePage(props) {
             .then(
                 EmployeesApiService.getEmployeesByLocationId(locationId)
                     .then(setEmployees)
-                    .catch(setError)
+                    .catch(err => {
+                        setError({ message: err.message });
+                    })
             )
             .then(navigate(`/location/${locationId}`))
-            .catch(setError)
+            .catch(err => {
+                setError({ message: err.message });
+            });
     }
 
     if (employee) {
@@ -220,7 +228,7 @@ export default function EditEmployeePage(props) {
                                 )}
                             </Formik>
                             
-                            {error && <p className='error'>{error}</p>}
+                            {error && <p className='error'>{error.message}</p>}
                         </div>
 
 
