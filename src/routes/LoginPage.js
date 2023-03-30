@@ -38,7 +38,6 @@ export default function LoginPage(props) {
                 navigate(`/location/${res.location_id}`);
             })
             .catch(err => {
-                console.log(err);
                 setError({ error: err.error });
                 handleButtonState('Submit');
                 handleButtonDisabled(false);
@@ -98,7 +97,7 @@ export default function LoginPage(props) {
                             </Form>
                         </Formik>
 
-                        {error && <p className='error'>{error.error}</p>}
+                        {error && <h3 className='error text-center'>{error.error}</h3>}
                     </div>
                 </main>
 
