@@ -13,7 +13,6 @@ export default function Reports(props) {
 
     const { setLocation_id } = useContext(ApplicationContext);
     const [date, setDate ] = useState(new Date());
-    const [buttonState, setButtonState] = useState('Run Report');
     const [error, setError] = useState(null);
     const [tickets, setTickets] = useState(null);
     const [showLoader, setShowLoader] = useState(false);
@@ -119,7 +118,7 @@ export default function Reports(props) {
                                         </div>
 
                                         <div className='btn-wrap'>
-                                            <button className='btn orange' type='submit'>{buttonState}</button>
+                                            <button className='btn orange' type='submit'>Run Report</button>
                                         </div>
                                     </Form>
                                 </Formik>

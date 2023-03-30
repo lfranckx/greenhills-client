@@ -37,8 +37,11 @@ export default function LoginPage(props) {
                 setLocation_id(res.location_id)
                 navigate(`/location/${res.location_id}`);
             })
-            .catch(res => {
-                setError({ error: res.error });
+            .catch(err => {
+                console.log(err);
+                setError({ error: err.error });
+                handleButtonState('Submit');
+                handleButtonDisabled(false);
             });
     }
 
