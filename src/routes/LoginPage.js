@@ -98,7 +98,7 @@ export default function LoginPage(props) {
                             </Form>
                         </Formik>
 
-                        {error && <p className='error'>{error}</p>}
+                        {error && <p className='error'>{error.error}</p>}
                     </div>
                 </main>
 
