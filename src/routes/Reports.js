@@ -29,7 +29,9 @@ export default function Reports(props) {
     const submitForm = (values) => {
         TicketsApiService.getTicketsBySelectedDates(values, locationId)
         .then(setTickets)
-        .catch(setError);
+        .catch(err => {
+            setError({ message: err.message });
+        });
     }
 
     const variants = {
@@ -59,7 +61,6 @@ export default function Reports(props) {
                     {tickets.map((ticket) => {
                         return <TicketRows key={ticket.id} ticket={ticket} />
                     })}
-                    
                 </div>
             );
         }
@@ -127,7 +128,7 @@ export default function Reports(props) {
                     </div>
 
                     <section className='main-content'>
-                        {error ? <h2>There was an error. Try again.</h2> : renderReport()}
+                        {error ? <h2>There was an error: {error.message}</h2> : renderReport()}
                     </section>
                 </main>
             </motion.div>
