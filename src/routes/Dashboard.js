@@ -16,14 +16,17 @@ export default function PrintTicketsPage(props) {
         hidden: { opacity: 0 },
     }
     
-    const { error, setError, employees, setEmployees, setLocation_id } = useContext(ApplicationContext);
+    const { employees, setEmployees, setLocation_id } = useContext(ApplicationContext);
     const [date, setDate ] = useState(new Date());
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         setLocation_id(locationId);
         EmployeesApiService.getEmployeesByLocationId(locationId)
             .then(setEmployees)
-            .catch(setError)
+            .catch(err => {
+                setError({ message: err.message });
+            })
         const timer = setInterval(() => setDate(new Date()), 1000);
         return function cleanup() {
             clearInterval(timer);
@@ -75,7 +78,7 @@ export default function PrintTicketsPage(props) {
                 </div>
 
                 <section className='main-content'>
-                    {error ? <h2 className='text-center error'>There was an error try again.</h2> : renderEmployees()}
+                    {error ? <h2 className='text-center error'>There was an error: {error.message}</h2> : renderEmployees()}
                 </section>
 
                 <div className='bottom btn-wrap'>

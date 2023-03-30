@@ -17,14 +17,17 @@ export default function EditEmployeesPage(props) {
         hidden: { opacity: 0 },
     }
     
-    const { error, setError, employees, setEmployees, location_id, setLocation_id } = useContext(ApplicationContext);
+    const { employees, setEmployees, location_id, setLocation_id } = useContext(ApplicationContext);
     const [date, setDate ] = useState(new Date());
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         setLocation_id(locationId);
         EmployeesApiService.getEmployeesByLocationId(locationId)
             .then(setEmployees)
-            .catch(setError)
+            .catch(err => {
+                setError({ message: err.message });
+            })
         const timer = setInterval(() => setDate(new Date()), 1000);
         return function cleanup() {
             clearInterval(timer);
@@ -75,7 +78,7 @@ export default function EditEmployeesPage(props) {
                 </div>
 
                 <section className='main-content'>
-                    {error ? <h2>There was an error try again.</h2> : renderEmployees()}
+                    {error ? <h2>There was an error: {error.message}</h2> : renderEmployees()}
                 </section>
             </main>
         </motion.div>
