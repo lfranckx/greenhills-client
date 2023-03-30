@@ -11,6 +11,9 @@ export default function TicketRows(props) {
         location = "Woussickett"
     }
 
+    const dateCreated = new Date(ticket.date_created);
+    const formattedDate = dateCreated.toLocaleString();
+
     const variants = {
         visible: { opacity: 1 },
         hidden: { opacity: 0 },
@@ -28,7 +31,7 @@ export default function TicketRows(props) {
                 <p>{ticket.employee_id}</p>
                 <p>{ticket.employee_name}</p>
                 <p>{location}</p>
-                <p>{ticket.date_created}</p>
+                <p>{formattedDate}</p>
             </div>
         </motion.div>
     )
