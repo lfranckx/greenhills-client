@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ApplicationContext } from '../context';
-import logo from '../images/logo-greenhills.png';
+import logoGreenHills from '../images/logo-greenhills.png';
+import logoWoussickett from '../images/logo-woussickett.png';
 import '../styles/Header.scss';
 import TokenService from '../services/TokenService';
 import IdleService from '../services/IdleService';
@@ -16,7 +17,7 @@ export default function Header(props) {
         setActive(!active)
     }
 
-    const { location_id, setLocation_id } = useContext(ApplicationContext);
+    const { location_id } = useContext(ApplicationContext);
     const [active, setActive] = useState(false);
 
     return (
@@ -25,7 +26,8 @@ export default function Header(props) {
                 <header>
                     <Link className='logo-link' to='/'>
                         <div className='logo-wrap'>
-                            <img className='logo' src={logo} alt='logo' />
+                            {parseInt(location_id) === 1 && <img className='logo' src={logoGreenHills} alt='logo' />}
+                            {parseInt(location_id) === 2 && <img className='logo' src={logoWoussickett} alt='logo' />}
                         </div>
                     </Link>
 
