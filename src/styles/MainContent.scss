@@ -130,8 +130,8 @@
         }
 
         .row {
-            display: flex;
-            justify-content: space-evenly;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
             padding: 12px;
 
             p {
