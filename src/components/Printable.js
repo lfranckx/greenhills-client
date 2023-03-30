@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 export default function Printable(props) {
     const { ticket, location_id, } = props;
