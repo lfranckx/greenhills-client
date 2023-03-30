@@ -35,7 +35,9 @@ export default function PrintTickets(props) {
         setLocation_id(locationId);
         EmployeesApiService.getEmployeeById(employeeId)
             .then(setEmployee)
-            .catch(setError);
+            .catch(err => {
+                setError({ message: err.message });
+            });
 
         if (showPrintable) {
             setTimeout(() => {
@@ -72,11 +74,17 @@ export default function PrintTickets(props) {
         .then(() => {
             EmployeesApiService.updateEmployee(employee)
             .then(setEmployee)
-            .catch(setError)
+            .catch(err => {
+                setError({ message: err.message });
+                handleButtonDisabled(false);
+            })
         })
         .then(handleButtonDisabled(false))
         .then(() => setShowPrintable(true))
-        .catch(setError);
+        .catch(err => {
+            setError({ message: err.message });
+            handleButtonDisabled(false);
+        });
     }
 
     if (employee) {
@@ -148,7 +156,7 @@ export default function PrintTickets(props) {
                                 <button className='btn blue' onClick={handleShowFieldButton}>{showFieldBtnText}</button>
                             </div>
                             
-                            {error && <p className='error'>{error}</p>}
+                            {error && <p className='error'>{error.message}</p>}
                         </div>
 
                         {showPrintable && <div className='printable-wrap'> 
