@@ -97,7 +97,7 @@ export default function LoginPage(props) {
                             </Form>
                         </Formik>
 
-                        {error && <h3 className='error text-center'>{error.error}</h3>}
+                        {error && <h3 className='error text-center'>{error.message}</h3>}
                     </div>
                 </main>
 
