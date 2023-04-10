@@ -24,11 +24,15 @@ export default function Reports(props) {
         return function cleanup() {
             clearInterval(timer);
         }
-    }, []);
+    }, [locationId, setLocation_id]);
 
     const submitForm = (values) => {
+        setShowLoader(true);
         TicketsApiService.getTicketsBySelectedDates(values, locationId)
-        .then(setTickets)
+        .then(tickets => {
+            setShowLoader(false);
+            setTickets(tickets);
+        })
         .catch(err => {
             setError({ message: err.message });
         });

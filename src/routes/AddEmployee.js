@@ -16,7 +16,7 @@ export default function AddEmployee(props) {
     useEffect(() => {
         window.scrollTo(0,0);
         setLocation_id(locationId);
-    }, []);
+    }, [locationId, setLocation_id]);
 
     const variants = {
         visible: { opacity: 1 },
@@ -38,11 +38,11 @@ export default function AddEmployee(props) {
         first_name: Yup.string().max(30, "* 30 maximum characters").required('* Required'),
         last_name: Yup.string().max(30, "* 30 maximum characters").required('* Required'),
         location: Yup.string().oneOf(Object.values(location_field), '* Must select one of the valid options').required('* Required'),
-        password: Yup.string().min(3, 'Password is too short').max(72, 'Password is too long').matches(REQEX_UPPER_LOWER_NUMBER, 'Password must container at least one uppercase, one lowercase, and one number').required('* Required')
+        password: Yup.string().min(3, 'Password is too short').max(72, 'Password is too long')
+                    .matches(REQEX_UPPER_LOWER_NUMBER, 'Password must container at least one uppercase, one lowercase, and one number').required('* Required')
     });
 
     const submitForm = (values) => {
-        console.log(values);
         handleButtonState('Sending...');
         handleButtonDisabled(true);
 
@@ -63,7 +63,6 @@ export default function AddEmployee(props) {
             password: values.password
         }
 
-        console.log('submitting newEmployee...', newEmployee);
         EmployeesApiService.addNewEmployee(newEmployee)
             .then(
                 EmployeesApiService.getEmployeesByLocationId(locationId)

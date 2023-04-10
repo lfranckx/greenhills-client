@@ -2,7 +2,6 @@ import React from 'react';
 
 export default function Printable(props) {
     const { ticket, location_id, } = props;
-    console.log(location_id);
     let location = "";
     if (parseInt(location_id) === 1) {
         location = "Green Hills";

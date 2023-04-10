@@ -31,7 +31,7 @@ export default function PrintTicketsPage(props) {
         return function cleanup() {
             clearInterval(timer);
         }
-    }, []);
+    }, [locationId, setEmployees, setLocation_id]);
 
     const renderEmployees = () => {
         if (!employees) {

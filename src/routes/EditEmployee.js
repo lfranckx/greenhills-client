@@ -26,7 +26,7 @@ export default function EditEmployeePage(props) {
         EmployeesApiService.getEmployeeById(employeeId)
             .then(setEmployee)
             .catch(setError);
-    }, []);
+    }, [employeeId, locationId, setLocation_id]);
 
     const variants = {
         visible: { opacity: 1 },

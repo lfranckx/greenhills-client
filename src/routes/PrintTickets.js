@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import { ApplicationContext } from '../context';
 import EmployeesApiService from '../services/EmployeesApiService';
 import TicketsApiService from '../services/TicketsApiService';
@@ -15,7 +15,6 @@ export default function PrintTickets(props) {
         hidden: { opacity: 0 },
     };
 
-    const navigate = useNavigate();
     let params = useParams();
     const employeeId = params.employeeId;
     const locationId = window.sessionStorage.getItem('location_id');
@@ -44,7 +43,7 @@ export default function PrintTickets(props) {
                 window.print();
             }, 500);
         }
-    }, [showPrintable]);
+    }, [employeeId, locationId, setLocation_id, showPrintable]);
 
     const formSchema = Yup.object().shape({
         custom_message: Yup.string().max(800, "* Message is too long.")

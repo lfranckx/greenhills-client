@@ -17,7 +17,7 @@ export default function EditEmployeesPage(props) {
         hidden: { opacity: 0 },
     }
     
-    const { employees, setEmployees, location_id, setLocation_id } = useContext(ApplicationContext);
+    const { employees, setEmployees, setLocation_id } = useContext(ApplicationContext);
     const [date, setDate ] = useState(new Date());
     const [error, setError] = useState(null);
 
@@ -32,7 +32,7 @@ export default function EditEmployeesPage(props) {
         return function cleanup() {
             clearInterval(timer);
         }
-    }, []);
+    }, [locationId, setEmployees, setLocation_id]);
 
     const renderEmployees = () => {
         if (!employees) {
