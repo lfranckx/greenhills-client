@@ -6,6 +6,10 @@
     align-items: flex-end;
     width: 100%;
     padding: 2rem 0 2rem;
+
+    @media only screen and (max-width: 500px) {
+        display: block;
+    }
 }
 
 .employees-list {
@@ -36,6 +40,16 @@
     }
 }
 
+.bottom {
+    margin-left: auto;
+    margin-top: 32px;
+    max-width: 320px;
+
+    @media only screen and (max-width: 749px) {
+        max-width: 100%;
+    }
+}
+
 #form-page {
     padding: 2rem 1rem;
     display: flex;
@@ -56,8 +70,9 @@
         }
 
         @media only screen and (max-width: 750px) {
-                min-width: 100%;
-                width: 100%;
+            min-width: 100%;
+            width: 100%;
+            padding: 2rem 2rem;
         }
 
         h2 {

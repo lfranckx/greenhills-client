@@ -55,8 +55,13 @@ input, select, textarea {
     margin: 4px 0;
 }
 
+.btn-wrap {
+    display: flex;
+}
+
 .btn {
-    width: 260px;
+    width: 100%;
+    min-width: 100%;
     padding: 8px;
     color: $white;
     font-weight: 900;
@@ -101,10 +106,6 @@ input, select, textarea {
 
 .align-right {
     margin-left: auto;
-}
-
-.bottom {
-    margin-top: 32px;
 }
 
 .error {

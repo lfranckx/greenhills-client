@@ -81,8 +81,10 @@ export default function PrintTicketsPage(props) {
                     {error ? <h2 className='text-center error'>There was an error: {error.message}</h2> : renderEmployees()}
                 </section>
 
-                <div className='bottom btn-wrap'>
-                    <Link to={`/reports/${locationId}`} className='btn orange align-right'>Reports</Link>
+                <div className='bottom'>
+                    <div className='btn-wrap'>
+                        <Link to={`/reports/${locationId}`} className='btn orange align-right'>Reports</Link>
+                    </div>
                 </div>
             </main>
         </motion.div>
