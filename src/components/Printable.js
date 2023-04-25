@@ -20,8 +20,8 @@ export default function Printable(props) {
             </div>
 
             <div className='ticket-date-time'>
-                {parseInt(location_id) === 1 && <p className='large-text'>{location} Golf Course Hole #7</p>}
-                {parseInt(location_id) === 2 && <p className='large-text'>{location} Golf Course Hole #12</p>}
+                {parseInt(location_id) === 1 && <p className='large-text'>{location} Golf Course <br/>Hole #7</p>}
+                {parseInt(location_id) === 2 && <p className='large-text'>{location} Golf Course <br/>Hole #12</p>}
                 <p className='medium-text'>{formattedDate}</p>
             </div>
 
