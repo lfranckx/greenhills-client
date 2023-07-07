@@ -29,7 +29,7 @@ export default function Printable(props) {
                 <p className='uppercase'>You can't lose!</p>
                 <div className='spacer'></div>
                 <p>Keep this ticket to receive your 1st drink free</p>
-                <p>(Non-Premium Draft, Fountain Soda)</p>
+                <p>(Domestic Beer, Fountain Soda)</p>
                 <div className='spacer'></div>
                 {parseInt(location_id) === 1 && <p className='uppercase'>Good luck and shoot for the pin on Hole 7!!!</p>}
                 {parseInt(location_id) === 2 && <p className='uppercase'>Good luck and shoot for the pin on Hole 12!!!</p>}
